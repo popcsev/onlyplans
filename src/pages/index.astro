@@ -200,6 +200,46 @@ const weather = {
         </div>
       </section>
 
+
+      <section class="add-plan-section" aria-labelledby="add-plan-title">
+        <div class="section-heading compact">
+          <p data-i18n="addPlanKicker">Add plans</p>
+          <h2 id="add-plan-title" data-i18n="addPlanTitle">Put Olaf on the agenda</h2>
+        </div>
+        <form class="plan-form" id="plan-form">
+          <label>
+            <span data-i18n="formTitle">Plan title</span>
+            <input name="title" type="text" placeholder="Emergency gelato meeting" data-placeholder-en="Emergency gelato meeting" data-placeholder-it="Riunione gelato d’emergenza" required />
+          </label>
+          <label>
+            <span data-i18n="formDate">Date</span>
+            <input name="date" type="date" value="2026-05-02" required />
+          </label>
+          <label>
+            <span data-i18n="formStart">Start</span>
+            <input name="start" type="time" value="23:30" required />
+          </label>
+          <label>
+            <span data-i18n="formEnd">End</span>
+            <input name="end" type="time" value="00:30" required />
+          </label>
+          <label class="wide">
+            <span data-i18n="formLocation">Location</span>
+            <input name="location" type="text" placeholder="Zürich, probably near bass" data-placeholder-en="Zürich, probably near bass" data-placeholder-it="Zurigo, probabilmente vicino ai bassi" />
+          </label>
+          <label class="wide">
+            <span data-i18n="formNotes">Notes</span>
+            <textarea name="notes" rows="3" placeholder="What is Olaf doing and how worried should we be?" data-placeholder-en="What is Olaf doing and how worried should we be?" data-placeholder-it="Cosa fa Olaf e quanto dobbiamo preoccuparci?"></textarea>
+          </label>
+          <div class="form-actions wide">
+            <button class="primary-cta" type="submit" data-i18n="savePlan">Add plan</button>
+            <button class="ghost-cta" type="button" id="clear-plans" data-i18n="clearPlans">Clear added plans</button>
+            <a class="calendar-cta" href="#" id="download-custom-ics" data-i18n="downloadUpdated">Download updated calendar</a>
+          </div>
+        </form>
+        <div class="custom-plan-list" id="custom-plan-list" aria-live="polite"></div>
+      </section>
+
       <section class="weather-section" aria-labelledby="weather-title">
         <div class="section-heading compact">
           <p data-i18n="weatherIntel">Weather intelligence</p>
@@ -273,6 +313,20 @@ const weather = {
           olafStatus: 'Status: beautifully over-scheduled',
           actualSchedule: 'Actual schedule',
           runSheet: 'The Olaf Saturday run sheet',
+          addPlanKicker: 'Add plans',
+          addPlanTitle: 'Put Olaf on the agenda',
+          formTitle: 'Plan title',
+          formDate: 'Date',
+          formStart: 'Start',
+          formEnd: 'End',
+          formLocation: 'Location',
+          formNotes: 'Notes',
+          savePlan: 'Add plan',
+          clearPlans: 'Clear added plans',
+          downloadUpdated: 'Download updated calendar',
+          addedPlansTitle: 'Added plans',
+          removePlan: 'Remove',
+          noAddedPlans: 'No extra Olaf plans yet. Dangerous amount of freedom.',
           weatherIntel: 'Weather intelligence',
           weatherTitle: 'Can Olaf survive outside?',
           note1Title: 'Parking first',
@@ -301,6 +355,20 @@ const weather = {
           olafStatus: 'Stato: magnificamente sovra-programmato',
           actualSchedule: 'Programma reale',
           runSheet: 'La scaletta del sabato di Olaf',
+          addPlanKicker: 'Aggiungi piani',
+          addPlanTitle: 'Metti Olaf in agenda',
+          formTitle: 'Titolo del piano',
+          formDate: 'Data',
+          formStart: 'Inizio',
+          formEnd: 'Fine',
+          formLocation: 'Luogo',
+          formNotes: 'Note',
+          savePlan: 'Aggiungi piano',
+          clearPlans: 'Cancella piani aggiunti',
+          downloadUpdated: 'Scarica calendario aggiornato',
+          addedPlansTitle: 'Piani aggiunti',
+          removePlan: 'Rimuovi',
+          noAddedPlans: 'Nessun piano extra per Olaf. Quantità pericolosa di libertà.',
           weatherIntel: 'Intelligence meteo',
           weatherTitle: 'Olaf può sopravvivere fuori?',
           note1Title: 'Prima Parking',
@@ -337,10 +405,115 @@ const weather = {
         localStorage.setItem('onlyplans-language', lang);
       };
 
-      const initialLanguage = localStorage.getItem('onlyplans-language') || 'en';
+      const getLanguage = () => localStorage.getItem('onlyplans-language') || 'en';
+      const planStorageKey = 'onlyplans-added-plans';
+      const builtInEvents = [
+        { title: 'Olaf at THE PARKING+ / Schallfenster', date: '2026-05-02', start: '16:00', end: '22:00', location: 'Zürich, Switzerland — secret Schallfenster location', notes: 'GEM 16:00-18:00, DJ Mashallah 18:00-20:00, Carla Durisch 20:00-22:00.' },
+        { title: 'Olaf migration to Contrabbasso', date: '2026-05-02', start: '23:00', end: '01:00', location: 'Contrabbasso, Zürich, Switzerland', notes: 'Second stop: further low-frequency fieldwork.' }
+      ];
+
+      const getPlans = () => JSON.parse(localStorage.getItem(planStorageKey) || '[]');
+      const savePlans = (plans) => localStorage.setItem(planStorageKey, JSON.stringify(plans));
+      const pad = (value) => String(value).padStart(2, '0');
+      const icsDate = (plan, field) => {
+        const [year, month, day] = plan.date.split('-').map(Number);
+        const [hours, minutes] = plan[field].split(':').map(Number);
+        let date = new Date(year, month - 1, day, hours, minutes);
+        if (field === 'end' && plan.end < plan.start) date.setDate(date.getDate() + 1);
+        return `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}00Z`;
+      };
+      const escapeIcs = (text = '') => text.replaceAll('\\', '\\\\').replaceAll('\n', '\\n').replaceAll(',', '\\,').replaceAll(';', '\\;');
+      const makeIcs = (plans) => `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//onlyplans.lol//Added Plans//EN\nCALSCALE:GREGORIAN\nMETHOD:PUBLISH\nX-WR-CALNAME:Olaf's OnlyPlans\n${plans.map((plan, index) => `BEGIN:VEVENT\nUID:olaf-plan-${index}-${Date.now()}@onlyplans.lol\nDTSTAMP:${icsDate({ ...plan, date: '2026-05-02', start: '00:00' }, 'start')}\nDTSTART:${icsDate(plan, 'start')}\nDTEND:${icsDate(plan, 'end')}\nSUMMARY:${escapeIcs(plan.title)}\nDESCRIPTION:${escapeIcs(plan.notes || 'Added from onlyplans.lol')}\nLOCATION:${escapeIcs(plan.location || 'Zürich')}\nURL:https://onlyplans.lol\nEND:VEVENT`).join('\n')}\nEND:VCALENDAR\n`;
+
+      const updateDownload = () => {
+        const link = document.getElementById('download-custom-ics');
+        if (!link) return;
+        const blob = new Blob([makeIcs([...builtInEvents, ...getPlans()])], { type: 'text/calendar' });
+        if (link.dataset.objectUrl) URL.revokeObjectURL(link.dataset.objectUrl);
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.dataset.objectUrl = url;
+        link.download = 'olaf-updated-plans.ics';
+      };
+
+      const renderPlans = () => {
+        const container = document.getElementById('custom-plan-list');
+        if (!container) return;
+        const plans = getPlans();
+        const dictionary = translations[getLanguage()] || translations.en;
+        container.replaceChildren();
+        if (!plans.length) {
+          const empty = document.createElement('p');
+          empty.className = 'empty-plans';
+          empty.textContent = dictionary.noAddedPlans;
+          container.append(empty);
+          updateDownload();
+          return;
+        }
+
+        const heading = document.createElement('h3');
+        heading.className = 'custom-plan-heading';
+        heading.textContent = dictionary.addedPlansTitle;
+        container.append(heading);
+
+        plans.forEach((plan, index) => {
+          const article = document.createElement('article');
+          article.className = 'custom-plan-card';
+
+          const time = document.createElement('time');
+          time.textContent = `${plan.date} · ${plan.start}–${plan.end}`;
+
+          const body = document.createElement('div');
+          const title = document.createElement('h3');
+          title.textContent = plan.title;
+          const notes = document.createElement('p');
+          notes.textContent = plan.notes || '';
+          const location = document.createElement('small');
+          location.textContent = plan.location || 'Zürich';
+          body.append(title, notes, location);
+
+          const remove = document.createElement('button');
+          remove.className = 'remove-plan';
+          remove.type = 'button';
+          remove.textContent = dictionary.removePlan;
+          remove.addEventListener('click', () => {
+            const next = getPlans().filter((_, itemIndex) => itemIndex !== index);
+            savePlans(next);
+            renderPlans();
+          });
+
+          article.append(time, body, remove);
+          container.append(article);
+        });
+        updateDownload();
+      };
+
+      const initialLanguage = getLanguage();
       setLanguage(initialLanguage);
+      renderPlans();
       document.querySelectorAll('[data-lang-button]').forEach((button) => {
-        button.addEventListener('click', () => setLanguage(button.dataset.langButton));
+        button.addEventListener('click', () => {
+          setLanguage(button.dataset.langButton);
+          document.querySelectorAll('[data-placeholder-en][data-placeholder-it]').forEach((input) => {
+            input.placeholder = input.dataset[`placeholder${button.dataset.langButton === 'it' ? 'It' : 'En'}`];
+          });
+          renderPlans();
+        });
+      });
+      document.getElementById('plan-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const plan = Object.fromEntries(data.entries());
+        savePlans([...getPlans(), { ...plan, id: crypto.randomUUID() }]);
+        event.currentTarget.reset();
+        event.currentTarget.elements.date.value = '2026-05-02';
+        event.currentTarget.elements.start.value = '23:30';
+        event.currentTarget.elements.end.value = '00:30';
+        renderPlans();
+      });
+      document.getElementById('clear-plans')?.addEventListener('click', () => {
+        savePlans([]);
+        renderPlans();
       });
     </script>
   </body>
@@ -764,6 +937,112 @@ const weather = {
   }
 
 
+
+  .add-plan-section {
+    margin-top: 28px;
+    padding: clamp(24px, 4vw, 42px);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, rgba(255,79,216,.12), rgba(255,184,107,.08));
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(24px);
+  }
+
+  .plan-form {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .plan-form label {
+    display: grid;
+    gap: 8px;
+    color: var(--subtle);
+    font-size: .82rem;
+    font-weight: 900;
+  }
+
+  .plan-form label.wide, .form-actions.wide { grid-column: span 2; }
+
+  .plan-form input, .plan-form textarea {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: rgba(4, 8, 16, .5);
+    color: var(--ink);
+    font: inherit;
+    padding: 12px 14px;
+    outline: none;
+  }
+
+  .plan-form textarea { resize: vertical; min-height: 92px; }
+  .plan-form input::placeholder, .plan-form textarea::placeholder { color: rgba(167, 176, 192, .7); }
+
+  .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: var(--space-3);
+  }
+
+  .form-actions button { border: 0; cursor: pointer; font: inherit; }
+
+  .custom-plan-list {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .custom-plan-heading {
+    margin: 0;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    font-size: .72rem;
+    font-weight: 950;
+  }
+
+  .custom-plan-card {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: rgba(4, 8, 16, .42);
+  }
+
+  .custom-plan-card time {
+    color: var(--lime);
+    font-weight: 950;
+  }
+
+  .custom-plan-card h3 { margin: 0 0 4px; letter-spacing: -.03em; }
+  .custom-plan-card p { margin: 0; color: var(--subtle); line-height: 1.45; }
+  .custom-plan-card small { display: block; margin-top: 6px; color: var(--muted); font-weight: 850; }
+
+  .remove-plan {
+    min-height: 40px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255,79,216,.32);
+    border-radius: var(--radius-pill);
+    background: rgba(255,79,216,.11);
+    color: var(--hot);
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 950;
+    cursor: pointer;
+  }
+
+  .empty-plans {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 850;
+  }
+
+
   .weather-section {
     margin-top: 28px;
     padding: clamp(24px, 4vw, 42px);
@@ -916,9 +1195,9 @@ const weather = {
     .nav-status { display: none; }
     .hero { grid-template-columns: 1fr; }
     .hero-copy, .mission-card { min-height: auto; }
-    .stats, .cards-grid, .weather-panel { grid-template-columns: 1fr 1fr; }
+    .stats, .cards-grid, .weather-panel, .plan-form { grid-template-columns: 1fr 1fr; }
     .weather-main { grid-column: 1 / -1; }
-    .timeline-card { grid-template-columns: 1fr; align-items: start; }
+    .timeline-card, .custom-plan-card { grid-template-columns: 1fr; align-items: start; }
     .timeline-actions { justify-content: flex-start; }
     .badge { width: fit-content; }
     footer { flex-direction: column; }
@@ -929,7 +1208,8 @@ const weather = {
     .hero-copy, .mission-card, .timeline-section { border-radius: 26px; }
     .hero-copy { padding: 26px 20px; }
     h1 { font-size: clamp(4rem, 22vw, 6rem); }
-    .stats, .cards-grid, .weather-panel, .weather-slots { grid-template-columns: 1fr; }
+    .stats, .cards-grid, .weather-panel, .weather-slots, .plan-form { grid-template-columns: 1fr; }
+    .plan-form label.wide, .form-actions.wide { grid-column: auto; }
     .section-heading { display: block; }
     .route-node strong { font-size: 1.5rem; }
   }

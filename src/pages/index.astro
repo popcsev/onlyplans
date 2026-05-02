@@ -148,6 +148,7 @@ const weather = {
             <a class="primary-cta" href="#timeline" data-i18n="primaryCta">View the route</a>
             <a class="ghost-cta" href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">Schallfenster ↗</a>
             <a class="calendar-cta" href="/olaf-saturday.ics" download data-i18n="calendarCta">Add all to calendar</a>
+            <a class="sos-cta" href="sms:?&body=SOS%20OLAF%20%F0%9F%86%98%20Party%20backup%20needed.%20Bring%20water%2C%20snacks%2C%20and%20questionable%20judgment.%20https%3A%2F%2Fonlyplans.lol" data-i18n="sosCta">SOS Olaf</a>
           </div>
 
           <div class="stats" aria-label="Plan summary">
@@ -240,6 +241,20 @@ const weather = {
         <div class="custom-plan-list" id="custom-plan-list" aria-live="polite"></div>
       </section>
 
+
+      <section class="sos-section" aria-labelledby="sos-title">
+        <div class="sos-copy">
+          <p data-i18n="sosKicker">Emergency protocol</p>
+          <h2 id="sos-title" data-i18n="sosTitle">Does Olaf need help to party?</h2>
+          <p data-i18n="sosText">Press the button if the situation requires backup dancers, emotional support hydration, or a responsible adult pretending not to be responsible.</p>
+        </div>
+        <a class="sos-button" href="sms:?&body=SOS%20OLAF%20%F0%9F%86%98%20Party%20backup%20needed.%20Bring%20water%2C%20snacks%2C%20and%20questionable%20judgment.%20https%3A%2F%2Fonlyplans.lol">
+          <span>🆘</span>
+          <strong data-i18n="sosButton">SOS Olaf Button</strong>
+          <small data-i18n="sosSmall">summon party assistance</small>
+        </a>
+      </section>
+
       <section class="weather-section" aria-labelledby="weather-title">
         <div class="section-heading compact">
           <p data-i18n="weatherIntel">Weather intelligence</p>
@@ -306,6 +321,7 @@ const weather = {
           lede: 'Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.',
           primaryCta: 'View the route',
           calendarCta: 'Add all to calendar',
+          sosCta: 'SOS Olaf',
           addStop: 'Add',
           currentMission: 'CURRENT MISSION',
           secondAct: 'second act',
@@ -324,6 +340,11 @@ const weather = {
           savePlan: 'Add plan',
           clearPlans: 'Clear added plans',
           downloadUpdated: 'Download updated calendar',
+          sosKicker: 'Emergency protocol',
+          sosTitle: 'Does Olaf need help to party?',
+          sosText: 'Press the button if the situation requires backup dancers, emotional support hydration, or a responsible adult pretending not to be responsible.',
+          sosButton: 'SOS Olaf Button',
+          sosSmall: 'summon party assistance',
           addedPlansTitle: 'Added plans',
           removePlan: 'Remove',
           noAddedPlans: 'No extra Olaf plans yet. Dangerous amount of freedom.',
@@ -348,6 +369,7 @@ const weather = {
           lede: 'L’itinerario di stasera non è più teorico: prima <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ di Schallfenster</a>, poi un piccolo pellegrinaggio dignitoso verso <strong>Contrabbasso</strong>.',
           primaryCta: 'Vedi il percorso',
           calendarCta: 'Aggiungi tutto al calendario',
+          sosCta: 'SOS Olaf',
           addStop: 'Aggiungi',
           currentMission: 'MISSIONE ATTUALE',
           secondAct: 'secondo atto',
@@ -366,6 +388,11 @@ const weather = {
           savePlan: 'Aggiungi piano',
           clearPlans: 'Cancella piani aggiunti',
           downloadUpdated: 'Scarica calendario aggiornato',
+          sosKicker: 'Protocollo d’emergenza',
+          sosTitle: 'Olaf ha bisogno di aiuto per fare festa?',
+          sosText: 'Premi il pulsante se servono ballerini di rinforzo, idratazione emotiva o un adulto responsabile che finge di non esserlo.',
+          sosButton: 'Pulsante SOS Olaf',
+          sosSmall: 'evoca assistenza festaiola',
           addedPlansTitle: 'Piani aggiunti',
           removePlan: 'Rimuovi',
           noAddedPlans: 'Nessun piano extra per Olaf. Quantità pericolosa di libertà.',
@@ -751,7 +778,7 @@ const weather = {
     margin-top: 32px;
   }
 
-  .primary-cta, .ghost-cta, .calendar-cta {
+  .primary-cta, .ghost-cta, .calendar-cta, .sos-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -764,9 +791,10 @@ const weather = {
   }
 
   .primary-cta { color: #07101d; background: var(--lime); box-shadow: 0 18px 42px rgba(216,255,111,.2); }
-  .ghost-cta, .calendar-cta { border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); }
+  .ghost-cta, .calendar-cta, .sos-cta { border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); }
   .calendar-cta { border-color: rgba(255, 184, 107, .36); color: var(--amber); }
-  .primary-cta:hover, .ghost-cta:hover, .calendar-cta:hover { transform: translateY(-3px); }
+  .sos-cta { border-color: rgba(255, 79, 216, .46); color: var(--hot); background: rgba(255,79,216,.1); }
+  .primary-cta:hover, .ghost-cta:hover, .calendar-cta:hover, .sos-cta:hover { transform: translateY(-3px); }
 
   .stats {
     display: grid;
@@ -1043,6 +1071,64 @@ const weather = {
   }
 
 
+
+  .sos-section {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, .45fr);
+    gap: var(--space-4);
+    align-items: stretch;
+    padding: clamp(24px, 4vw, 42px);
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(255, 79, 216, .28);
+    background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(216,255,111,.08));
+    box-shadow: 0 28px 80px rgba(255, 79, 216, .12);
+    backdrop-filter: blur(24px);
+  }
+
+  .sos-copy p:first-child {
+    margin: 0 0 12px;
+    color: var(--hot);
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    font-size: .72rem;
+    font-weight: 950;
+  }
+
+  .sos-copy h2 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: .92;
+    letter-spacing: -.07em;
+  }
+
+  .sos-copy p:last-child {
+    max-width: 68ch;
+    margin: 16px 0 0;
+    color: var(--subtle);
+    line-height: 1.55;
+  }
+
+  .sos-button {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    min-height: 220px;
+    padding: var(--space-6);
+    border-radius: var(--radius-panel);
+    border: 1px solid rgba(216,255,111,.3);
+    background: radial-gradient(circle at 50% 10%, rgba(216,255,111,.28), rgba(255,79,216,.13) 55%, rgba(4,8,16,.38));
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 180ms ease, filter 180ms ease;
+  }
+
+  .sos-button:hover { transform: translateY(-4px) rotate(-1deg); filter: saturate(1.2); }
+  .sos-button span { font-size: 3rem; }
+  .sos-button strong { display: block; margin-top: 8px; font-size: 1.35rem; letter-spacing: -.04em; }
+  .sos-button small { display: block; margin-top: 4px; color: var(--lime); font-weight: 950; }
+
+
   .weather-section {
     margin-top: 28px;
     padding: clamp(24px, 4vw, 42px);
@@ -1195,7 +1281,7 @@ const weather = {
     .nav-status { display: none; }
     .hero { grid-template-columns: 1fr; }
     .hero-copy, .mission-card { min-height: auto; }
-    .stats, .cards-grid, .weather-panel, .plan-form { grid-template-columns: 1fr 1fr; }
+    .stats, .cards-grid, .weather-panel, .plan-form, .sos-section { grid-template-columns: 1fr 1fr; }
     .weather-main { grid-column: 1 / -1; }
     .timeline-card, .custom-plan-card { grid-template-columns: 1fr; align-items: start; }
     .timeline-actions { justify-content: flex-start; }
@@ -1208,7 +1294,7 @@ const weather = {
     .hero-copy, .mission-card, .timeline-section { border-radius: 26px; }
     .hero-copy { padding: 26px 20px; }
     h1 { font-size: clamp(4rem, 22vw, 6rem); }
-    .stats, .cards-grid, .weather-panel, .weather-slots, .plan-form { grid-template-columns: 1fr; }
+    .stats, .cards-grid, .weather-panel, .weather-slots, .plan-form, .sos-section { grid-template-columns: 1fr; }
     .plan-form label.wide, .form-actions.wide { grid-column: auto; }
     .section-heading { display: block; }
     .route-node strong { font-size: 1.5rem; }

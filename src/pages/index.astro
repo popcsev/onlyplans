@@ -59,6 +59,20 @@ const stats = [
   ['23:00', 'bass migration'],
   ['∞', 'Olaf lore']
 ];
+
+const weather = {
+  location: 'Zürich',
+  now: '7°C · clear',
+  feels: 'feels like 6°C',
+  wind: '7 km/h wind',
+  humidity: '56% humidity',
+  outlook: [
+    ['15:00', '19°C', 'patchy rain nearby', '100% rain chance'],
+    ['18:00', '17°C', 'patchy rain nearby', '100% rain chance'],
+    ['21:00', '14°C', 'clear', 'dry window']
+  ],
+  advice: 'Bring a light layer and a tiny umbrella. Olaf may pretend he is weatherproof; data disagrees.'
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -108,6 +122,14 @@ const stats = [
             <div class="route-line"></div>
             <div class="route-node"><span>02</span><strong>Contrabbasso</strong><small>second act</small></div>
           </div>
+          <div class="weather-widget" aria-label="Zürich weather snapshot">
+            <div>
+              <span class="weather-kicker">weather now · {weather.location}</span>
+              <strong>{weather.now}</strong>
+              <p>{weather.feels} · {weather.wind} · {weather.humidity}</p>
+            </div>
+            <div class="weather-icon" aria-hidden="true">🌦️</div>
+          </div>
           <div class="olaf-chip">Status: beautifully over-scheduled</div>
         </aside>
       </section>
@@ -130,6 +152,32 @@ const stats = [
               <div class="badge">{stop.badge}</div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section class="weather-section" aria-labelledby="weather-title">
+        <div class="section-heading compact">
+          <p>Weather intelligence</p>
+          <h2 id="weather-title">Can Olaf survive outside?</h2>
+        </div>
+        <div class="weather-panel">
+          <div class="weather-main">
+            <span>🌦️</span>
+            <div>
+              <strong>{weather.location}: {weather.now}</strong>
+              <p>{weather.advice}</p>
+            </div>
+          </div>
+          <div class="weather-slots">
+            {weather.outlook.map(([time, temp, condition, rain]) => (
+              <div class="weather-slot">
+                <span>{time}</span>
+                <strong>{temp}</strong>
+                <p>{condition}</p>
+                <small>{rain}</small>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -522,6 +570,84 @@ const stats = [
     white-space: nowrap;
   }
 
+
+  .weather-section {
+    margin-top: 28px;
+    padding: clamp(24px, 4vw, 42px);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, rgba(102,227,255,.12), rgba(216,255,111,.08));
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(24px);
+  }
+
+  .section-heading.compact { margin-bottom: 18px; }
+  .section-heading.compact h2 { font-size: clamp(1.8rem, 4vw, 3.2rem); }
+
+  .weather-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+    gap: var(--space-4);
+    align-items: stretch;
+  }
+
+  .weather-main, .weather-widget, .weather-slot {
+    border: 1px solid var(--line);
+    background: rgba(4, 8, 16, .42);
+  }
+
+  .weather-main {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    padding: clamp(18px, 3vw, 28px);
+    border-radius: var(--radius-panel);
+  }
+
+  .weather-main > span { font-size: clamp(2.4rem, 6vw, 4.5rem); }
+  .weather-main strong { display: block; font-size: clamp(1.35rem, 3vw, 2.2rem); letter-spacing: -.05em; }
+  .weather-main p { max-width: 58ch; margin: 8px 0 0; color: var(--subtle); line-height: 1.55; }
+
+  .weather-slots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .weather-slot {
+    padding: 16px;
+    border-radius: 22px;
+  }
+
+  .weather-slot span, .weather-kicker {
+    display: block;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    font-size: .68rem;
+    font-weight: 950;
+  }
+
+  .weather-slot strong { display: block; margin-top: 10px; font-size: 1.45rem; }
+  .weather-slot p { margin: 6px 0 0; color: var(--subtle); line-height: 1.35; }
+  .weather-slot small { display: block; margin-top: 10px; color: var(--amber); font-weight: 900; }
+
+  .weather-widget {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .weather-widget strong { display: block; margin-top: 6px; font-size: 1.25rem; letter-spacing: -.04em; }
+  .weather-widget p { margin: 4px 0 0; color: var(--muted); font-weight: 800; font-size: .86rem; line-height: 1.35; }
+  .weather-icon { font-size: 2rem; }
+
+
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
@@ -596,7 +722,8 @@ const stats = [
     .nav-status { display: none; }
     .hero { grid-template-columns: 1fr; }
     .hero-copy, .mission-card { min-height: auto; }
-    .stats, .cards-grid { grid-template-columns: 1fr 1fr; }
+    .stats, .cards-grid, .weather-panel { grid-template-columns: 1fr 1fr; }
+    .weather-main { grid-column: 1 / -1; }
     .timeline-card { grid-template-columns: 1fr; align-items: start; }
     .badge { width: fit-content; }
     footer { flex-direction: column; }
@@ -607,7 +734,7 @@ const stats = [
     .hero-copy, .mission-card, .timeline-section { border-radius: 26px; }
     .hero-copy { padding: 26px 20px; }
     h1 { font-size: clamp(4rem, 22vw, 6rem); }
-    .stats, .cards-grid { grid-template-columns: 1fr; }
+    .stats, .cards-grid, .weather-panel, .weather-slots { grid-template-columns: 1fr; }
     .section-heading { display: block; }
     .route-node strong { font-size: 1.5rem; }
   }

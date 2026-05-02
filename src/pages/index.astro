@@ -236,6 +236,11 @@ const weather = {
           <h3 data-i18n="note3Title">Tracking method</h3>
           <p data-i18n="note3Text">Approximate. Vibe-based. Legally distinct from surveillance.</p>
         </div>
+        <div class="note-card wild-card">
+          <span>🌀</span>
+          <h3 data-i18n="note4Title">Side quest</h3>
+          <p data-i18n="note4Text">Olaf is also looking for a crazy girl — ideally the fun kind, not the police-report kind.</p>
+        </div>
       </section>
 
       <footer>
@@ -268,6 +273,8 @@ const weather = {
           note2Text: 'The second destination has class, bass, and suspiciously late-night timing.',
           note3Title: 'Tracking method',
           note3Text: 'Approximate. Vibe-based. Legally distinct from surveillance.',
+          note4Title: 'Side quest',
+          note4Text: 'Olaf is also looking for a crazy girl — ideally the fun kind, not the police-report kind.',
           footer: 'Built with Astro. Powered by Olaf’s inability to stay home.'
         },
         it: {
@@ -292,6 +299,8 @@ const weather = {
           note2Text: 'La seconda destinazione ha classe, bassi e un tempismo sospettosamente notturno.',
           note3Title: 'Metodo di tracciamento',
           note3Text: 'Approssimativo. Basato sulle vibrazioni. Legalmente distinto dalla sorveglianza.',
+          note4Title: 'Missione secondaria',
+          note4Text: 'Olaf cerca anche una ragazza fuori di testa — idealmente in modo divertente, non da verbale di polizia.',
           footer: 'Costruito con Astro. Alimentato dall’incapacità di Olaf di restare a casa.'
         }
       };
@@ -817,6 +826,7 @@ const weather = {
   }
 
   .note-card.big { background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(102,227,255,.08)); }
+  .note-card.wild-card { background: linear-gradient(135deg, rgba(216,255,111,.16), rgba(255,79,216,.12)); }
   .note-card span { font-size: 2rem; }
   .note-card h3 { margin: 14px 0 8px; font-size: 1.35rem; letter-spacing: -.04em; }
   .note-card p { margin: 0; color: var(--subtle); line-height: 1.5; }

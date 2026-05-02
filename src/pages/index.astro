@@ -73,6 +73,7 @@ const stats = [
     <div class="orb orb-one" aria-hidden="true"></div>
     <div class="orb orb-two" aria-hidden="true"></div>
 
+    <a class="skip-link" href="#timeline">Skip to schedule</a>
     <main class="site-shell">
       <nav class="topbar" aria-label="Top navigation">
         <a class="brand" href="/" aria-label="onlyplans home">
@@ -82,10 +83,10 @@ const stats = [
         <div class="nav-status"><span></span> Olaf live-ish tracker</div>
       </nav>
 
-      <section class="hero">
+      <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
           <p class="eyebrow">Zürich · Saturday · highly unofficial operations desk</p>
-          <h1>Olaf has <em>plans</em>.</h1>
+          <h1 id="page-title">Olaf has <em>plans</em>.</h1>
           <p class="lede">Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.</p>
 
           <div class="cta-row">
@@ -111,10 +112,10 @@ const stats = [
         </aside>
       </section>
 
-      <section class="timeline-section" id="timeline">
+      <section class="timeline-section" id="timeline" aria-labelledby="timeline-title">
         <div class="section-heading">
           <p>Actual schedule</p>
-          <h2>The Olaf Saturday run sheet</h2>
+          <h2 id="timeline-title">The Olaf Saturday run sheet</h2>
         </div>
 
         <div class="timeline">
@@ -161,17 +162,33 @@ const stats = [
 <style is:global>
   :root {
     color-scheme: dark;
+
+    /* Primitive + semantic tokens, per the web-design skill */
     --ink: #f8fafc;
     --muted: #a7b0c0;
-    --subtle: rgba(248, 250, 252, .68);
-    --panel: rgba(12, 18, 32, .72);
-    --panel-strong: rgba(19, 27, 46, .9);
+    --subtle: rgba(248, 250, 252, .72);
+    --surface-0: #070a12;
+    --surface-1: rgba(12, 18, 32, .72);
+    --surface-2: rgba(19, 27, 46, .9);
     --line: rgba(255, 255, 255, .13);
     --hot: #ff4fd8;
     --blue: #66e3ff;
     --lime: #d8ff6f;
     --amber: #ffb86b;
+
+    --space-2: .5rem;
+    --space-3: .75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+
+    --radius-card: 2.25rem;
+    --radius-panel: 1.75rem;
+    --radius-pill: 999px;
     --shadow: 0 32px 90px rgba(0, 0, 0, .42);
+    --shadow-soft: 0 18px 42px rgba(0, 0, 0, .28);
   }
 
   * { box-sizing: border-box; }
@@ -288,7 +305,7 @@ const stats = [
 
   .hero-copy {
     padding: clamp(28px, 5vw, 56px);
-    border-radius: 36px;
+    border-radius: var(--radius-card);
     min-height: 560px;
     display: flex;
     flex-direction: column;
@@ -375,7 +392,7 @@ const stats = [
     position: relative;
     overflow: hidden;
     padding: 28px;
-    border-radius: 36px;
+    border-radius: var(--radius-card);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -386,7 +403,7 @@ const stats = [
     content: "";
     position: absolute;
     inset: 18px;
-    border-radius: 28px;
+    border-radius: var(--radius-panel);
     border: 1px dashed rgba(255,255,255,.18);
     pointer-events: none;
   }
@@ -402,9 +419,9 @@ const stats = [
     position: relative;
     z-index: 1;
     padding: 22px;
-    border-radius: 28px;
+    border-radius: var(--radius-panel);
     border: 1px solid var(--line);
-    background: var(--panel-strong);
+    background: var(--surface-2);
   }
 
   .route-node.active { background: linear-gradient(135deg, rgba(102,227,255,.22), rgba(255,79,216,.12)); }
@@ -434,7 +451,7 @@ const stats = [
   .timeline-section {
     margin-top: 28px;
     padding: clamp(24px, 4vw, 42px);
-    border-radius: 36px;
+    border-radius: var(--radius-card);
   }
 
   .section-heading {
@@ -491,7 +508,7 @@ const stats = [
   .timeline-body h3 { margin: 0 0 6px; font-size: clamp(1.15rem, 2vw, 1.55rem); letter-spacing: -.035em; }
   .timeline-body h3 a { text-decoration: none; }
   .timeline-body h3 a:hover { color: var(--blue); }
-  .timeline-body p { margin: 0; color: var(--subtle); line-height: 1.45; }
+  .timeline-body p { margin: 0; max-width: 72ch; color: var(--subtle); line-height: 1.55; }
   .timeline-body small { display: block; margin-top: 8px; color: var(--muted); font-weight: 850; }
 
   .badge {
@@ -507,14 +524,14 @@ const stats = [
 
   .cards-grid {
     display: grid;
-    grid-template-columns: 1.2fr .9fr .9fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
     gap: 14px;
     margin-top: 28px;
   }
 
   .note-card {
     padding: 24px;
-    border-radius: 30px;
+    border-radius: var(--radius-panel);
   }
 
   .note-card.big { background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(102,227,255,.08)); }
@@ -538,6 +555,41 @@ const stats = [
     0%, 100% { transform: translateY(0) rotate(-5deg); }
     50% { transform: translateY(-6px) rotate(5deg); }
   }
+
+
+  .skip-link {
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    z-index: 10;
+    translate: 0 -140%;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-pill);
+    background: var(--lime);
+    color: #07101d;
+    font-weight: 950;
+    text-decoration: none;
+    box-shadow: var(--shadow-soft);
+    transition: translate 160ms ease-out;
+  }
+
+  .skip-link:focus-visible { translate: 0; }
+
+  :focus-visible {
+    outline: 3px solid var(--lime);
+    outline-offset: 4px;
+    border-radius: 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
 
   @media (max-width: 900px) {
     .topbar { margin-bottom: 34px; }

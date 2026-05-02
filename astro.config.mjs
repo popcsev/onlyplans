@@ -1,8 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://popcsev.github.io',
-  base: '/onlyplans',
+  site: 'https://onlyplans.lol',
   output: 'static',
   outDir: './docs'
 });

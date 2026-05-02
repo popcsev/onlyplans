@@ -1,0 +1,341 @@
+---
+import PlanCard from '../components/PlanCard.astro';
+
+const plans = [
+  {
+    time: 'Sat<br>16:00',
+    title: 'THE PARKING+ by Schallfenster',
+    href: 'https://www.schallfenster.art/parking',
+    text: '12-hour non-stop live session in a secret Zürich location. First stop: access secured, wristband energy activated.',
+    badge: 'start here'
+  },
+  {
+    time: 'Sat<br>16:00',
+    title: 'GEM',
+    text: 'Opening stretch at Parking. Olaf enters the frequency portal wearing plausible shoes.',
+    badge: 'parking'
+  },
+  {
+    time: 'Sat<br>18:00',
+    title: 'DJ Mashallah',
+    text: 'The schedule gets louder; Olaf becomes locatable only by bass ripple and snack receipts.',
+    badge: 'parking'
+  },
+  {
+    time: 'Sat<br>20:00',
+    title: 'Carla Durisch',
+    text: 'Prime-time Schallfenster slot. Strong chance of “just one more track” becoming municipal policy.',
+    badge: 'peak'
+  },
+  {
+    time: 'Sat<br>23:00',
+    title: 'Contrabbasso',
+    text: 'Second destination of the night. Low-frequency cultural research with unclear but confident logistics.',
+    badge: 'next stop'
+  },
+  {
+    time: 'Sun<br>04:00',
+    title: 'Soft landing protocol',
+    text: 'Hydrate, regroup, and deny that Sunday has already started. Shoes optional, dignity negotiated.',
+    badge: 'survival'
+  }
+];
+
+const highlights = [
+  ['🎛️', 'Schallfenster first', 'THE PARKING+ runs from 16:00 with GEM, DJ Mashallah, and Carla Durisch on deck.'],
+  ['🎻', 'Then Contrabbasso', 'The elegant second act. Bass implied. Decisions maybe less so.'],
+  ['🛰️', 'Olaf telemetry', 'A speculative command center for tracking one man, one night, and several questionable transitions.']
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>onlyplans — Olaf's Weekend</title>
+    <meta name="description" content="Olaf's weekend schedule, plans, and availability in one quirky landing page." />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <main class="page">
+      <nav aria-label="Top navigation">
+        <div class="brand"><div class="logo">☃️</div> onlyplans</div>
+        <div class="nav-pill">Today: THE PARKING+ → Contrabbasso</div>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <div class="eyebrow">✨ Saturday 02.05.26 · Zürich plan mode</div>
+          <h1>Olaf's <span>onlyplans</span></h1>
+          <p class="tagline">Tonight's live tracker for Olaf's very serious weekend agenda: Schallfenster's THE PARKING+ first, then onward to Contrabbasso. Bass-forward, snack-adjacent, probably late.</p>
+          <div class="actions">
+            <a class="button primary" href="#schedule">Enter the plan vortex →</a>
+            <a class="button secondary" href="#highlights">Inspect the weirdness</a>
+          </div>
+          <div class="stats" aria-label="Weekend summary">
+            <div class="stat"><strong>16:00</strong><span>Parking starts</span></div>
+            <div class="stat"><strong>23:00</strong><span>next move</span></div>
+            <div class="stat"><strong>04:00</strong><span>ambitious ending</span></div>
+          </div>
+        </div>
+
+        <aside class="card" id="schedule" aria-label="Olaf's schedule">
+          <div class="orbit" aria-hidden="true"><span>🧊</span><span>🅿️</span><span>🎻</span></div>
+          <div class="snowman" aria-hidden="true">
+            <div class="snowball head"><div class="nose"></div></div>
+            <div class="snowball body1"></div>
+            <div class="snowball body2"></div>
+          </div>
+          <h2>Weekend schedule</h2>
+          <div class="schedule">
+            {plans.map((plan) => <PlanCard {...plan} />)}
+          </div>
+        </aside>
+      </section>
+
+      <section class="weekend" id="highlights" aria-label="Plan highlights">
+        {highlights.map(([icon, title, text]) => (
+          <div class="mini"><div class="icon">{icon}</div><h3>{title}</h3><p>{text}</p></div>
+        ))}
+      </section>
+
+      <footer>Made with Astro for Olaf's Saturday. THE PARKING+ → Contrabbasso. Highly scientific. Barely accountable.</footer>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #14213d;
+    --muted: #667085;
+    --paper: #fffaf0;
+    --snow: #f7fbff;
+    --ice: #bde0fe;
+    --blue: #3a86ff;
+    --orange: #ff9f1c;
+    --pink: #ffafcc;
+    --green: #80ed99;
+    --shadow: 0 24px 80px rgba(20, 33, 61, 0.16);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at top left, rgba(189, 224, 254, 0.85), transparent 36rem),
+      radial-gradient(circle at 80% 10%, rgba(255, 175, 204, 0.55), transparent 28rem),
+      conic-gradient(from 160deg at 75% 35%, rgba(128,237,153,.18), transparent, rgba(255,159,28,.2), transparent),
+      linear-gradient(135deg, #fffaf0 0%, #f7fbff 45%, #eaf7ff 100%);
+    overflow-x: hidden;
+  }
+
+  .noise {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .15;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  body::before, body::after {
+    content: "";
+    position: fixed;
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::before {
+    width: 32rem;
+    height: 32rem;
+    right: -12rem;
+    bottom: -14rem;
+    background: rgba(128, 237, 153, 0.35);
+    filter: blur(8px);
+  }
+
+  body::after {
+    width: 18rem;
+    height: 18rem;
+    left: 8%;
+    bottom: 7%;
+    background: rgba(255, 159, 28, 0.18);
+    filter: blur(18px);
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 34px 0 48px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 46px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 950;
+    letter-spacing: -0.05em;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+  }
+
+  .logo {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(58, 134, 255, 0.22);
+    transform: rotate(-6deg);
+    animation: wobble 4s ease-in-out infinite;
+  }
+
+  .nav-pill, .eyebrow {
+    border: 1px solid rgba(20, 33, 61, 0.12);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.62);
+    backdrop-filter: blur(14px);
+    color: var(--muted);
+    font-weight: 800;
+  }
+
+  .nav-pill { padding: 10px 16px; font-size: .92rem; }
+  .eyebrow { display: inline-flex; padding: 8px 13px; box-shadow: 0 10px 28px rgba(20, 33, 61, 0.08); font-size: .84rem; }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  h1 {
+    margin: 20px 0 18px;
+    font-size: clamp(3.6rem, 9vw, 7.6rem);
+    line-height: .86;
+    letter-spacing: -.09em;
+  }
+
+  h1 span {
+    display: block;
+    color: var(--blue);
+    text-shadow: 4px 4px 0 rgba(255, 159, 28, 0.28), -3px -3px 0 rgba(255, 175, 204, 0.32);
+  }
+
+  .tagline {
+    max-width: 620px;
+    color: #475467;
+    font-size: clamp(1.06rem, 2vw, 1.34rem);
+    line-height: 1.55;
+    margin: 0 0 26px;
+  }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 34px; }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 18px;
+    padding: 15px 20px;
+    font-weight: 950;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 12px 26px rgba(20, 33, 61, 0.14);
+    transition: transform 180ms ease, filter 180ms ease;
+  }
+
+  .button:hover { transform: translateY(-2px) rotate(-1deg); filter: saturate(1.15); }
+  .button.primary { background: var(--orange); }
+  .button.secondary { background: rgba(255,255,255,0.74); border: 1px solid rgba(20, 33, 61, 0.1); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 620px; }
+  .stat { padding: 16px; border-radius: 22px; background: rgba(255,255,255,0.7); border: 1px solid rgba(20, 33, 61, 0.1); }
+  .stat strong { display: block; font-size: 1.5rem; }
+  .stat span { color: var(--muted); font-weight: 800; font-size: .88rem; }
+
+  .card {
+    position: relative;
+    padding: 24px;
+    border-radius: 34px;
+    background: rgba(255,255,255,0.74);
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+  }
+
+  .orbit {
+    position: absolute;
+    inset: -30px -10px auto auto;
+    width: 160px;
+    height: 160px;
+    pointer-events: none;
+    animation: orbitSpin 13s linear infinite;
+  }
+  .orbit span { position: absolute; font-size: 1.45rem; filter: drop-shadow(0 8px 8px rgba(20,33,61,.16)); }
+  .orbit span:nth-child(1) { left: 10px; top: 60px; }
+  .orbit span:nth-child(2) { right: 12px; top: 20px; }
+  .orbit span:nth-child(3) { right: 46px; bottom: 4px; }
+
+  .snowman { position: absolute; right: 26px; top: -54px; width: 104px; filter: drop-shadow(0 14px 18px rgba(20,33,61,0.18)); }
+  .snowball { margin-inline: auto; background: white; border: 3px solid #d8efff; border-radius: 50%; }
+  .head { width: 54px; height: 54px; position: relative; }
+  .head::before, .head::after { content: ""; position: absolute; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
+  .head::before { left: 15px; }
+  .head::after { right: 15px; }
+  .nose { position: absolute; left: 26px; top: 26px; width: 25px; height: 8px; border-radius: 999px; background: var(--orange); transform: rotate(8deg); }
+  .body1 { width: 74px; height: 70px; margin-top: -6px; }
+  .body2 { width: 94px; height: 84px; margin-top: -8px; }
+
+  .card h2 { margin: 0 0 18px; font-size: clamp(1.8rem, 3vw, 2.55rem); letter-spacing: -.05em; }
+  .schedule { display: grid; gap: 12px; }
+  .plan { display: grid; grid-template-columns: 76px 1fr auto; align-items: center; gap: 14px; padding: 15px; border-radius: 22px; background: #fff; border: 1px solid rgba(20, 33, 61, 0.08); transition: transform 180ms ease, box-shadow 180ms ease; }
+  .plan:hover { transform: translateY(-3px) rotate(.3deg); box-shadow: 0 14px 30px rgba(20, 33, 61, 0.1); }
+  .time { font-weight: 950; color: var(--blue); }
+  .plan h3 { margin: 0 0 4px; font-size: 1.02rem; }
+  .plan h3 a { color: inherit; text-decoration: none; }
+  .plan h3 a:hover { color: var(--blue); }
+  .plan p { margin: 0; color: var(--muted); font-size: .92rem; }
+  .badge { padding: 8px 10px; border-radius: 999px; background: #eef7ff; color: var(--blue); font-weight: 950; font-size: .78rem; white-space: nowrap; }
+
+  .weekend { margin-top: 36px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .mini { padding: 20px; border-radius: 28px; background: rgba(255,255,255,0.68); border: 1px solid rgba(20, 33, 61, 0.09); }
+  .mini .icon { font-size: 2rem; }
+  .mini h3 { margin: 12px 0 8px; font-size: 1.25rem; }
+  .mini p { margin: 0; color: var(--muted); line-height: 1.5; }
+
+  footer { margin-top: 36px; text-align: center; color: var(--muted); font-weight: 800; }
+
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-6deg) translateY(0); }
+    50% { transform: rotate(5deg) translateY(-4px); }
+  }
+
+  @keyframes orbitSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 850px) {
+    .hero { grid-template-columns: 1fr; }
+    .card { margin-top: 38px; }
+    .stats, .weekend { grid-template-columns: 1fr; }
+    .plan { grid-template-columns: 64px 1fr; }
+    .badge { grid-column: 2; width: fit-content; }
+    .nav-pill { display: none; }
+  }
+</style>

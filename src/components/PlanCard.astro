@@ -1,0 +1,11 @@
+---
+const { time, title, text, badge, href } = Astro.props;
+---
+<article class="plan">
+  <div class="time" set:html={time}></div>
+  <div>
+    <h3>{href ? <a href={href} target="_blank" rel="noopener">{title}</a> : title}</h3>
+    <p>{text}</p>
+  </div>
+  <div class="badge">{badge}</div>
+</article>

@@ -1,77 +1,110 @@
 ---
-import PlanCard from '../components/PlanCard.astro';
-
 const stops = [
   {
     time: '16:00',
     kicker: 'Stop 01',
+    kickerIt: 'Tappa 01',
     title: 'THE PARKING+ opens the portal',
+    titleIt: 'THE PARKING+ apre il portale',
     href: 'https://www.schallfenster.art/parking',
     text: 'Olaf arrives at Schallfenster’s secret Zürich location. Wristband acquired. Civilian identity begins to dissolve.',
+    textIt: 'Olaf arriva nella location segreta di Schallfenster a Zurigo. Braccialetto ottenuto. L’identità civile inizia a dissolversi.',
     meta: 'Schallfenster · Zürich · secret location',
-    badge: 'confirmed'
+    metaIt: 'Schallfenster · Zurigo · location segreta',
+    badge: 'confirmed',
+    badgeIt: 'confermato'
   },
   {
     time: '16:00–18:00',
     kicker: 'Set 01',
+    kickerIt: 'Set 01',
     title: 'GEM',
+    titleIt: 'GEM',
     text: 'Opening transmission. Soft launch into the bass dimension.',
+    textIt: 'Trasmissione di apertura. Lancio morbido nella dimensione dei bassi.',
     meta: 'Parking session',
-    badge: 'warm-up'
+    metaIt: 'sessione Parking',
+    badge: 'warm-up',
+    badgeIt: 'riscaldamento'
   },
   {
     time: '18:00–20:00',
     kicker: 'Set 02',
+    kickerIt: 'Set 02',
     title: 'DJ Mashallah',
+    titleIt: 'DJ Mashallah',
     text: 'Signal strength increases. Olaf is now best tracked by rhythm, not GPS.',
+    textIt: 'Il segnale aumenta. Ora Olaf si traccia meglio col ritmo che col GPS.',
     meta: 'Parking session',
-    badge: 'rising'
+    metaIt: 'sessione Parking',
+    badge: 'rising',
+    badgeIt: 'in salita'
   },
   {
     time: '20:00–22:00',
     kicker: 'Set 03',
+    kickerIt: 'Set 03',
     title: 'Carla Durisch',
+    titleIt: 'Carla Durisch',
     text: 'Prime-time slot. “One more track” becomes a legally binding emotional contract.',
+    textIt: 'Fascia prime-time. “Ancora una traccia” diventa un contratto emotivo legalmente vincolante.',
     meta: 'Crosstown Rebels',
-    badge: 'peak'
+    metaIt: 'Crosstown Rebels',
+    badge: 'peak',
+    badgeIt: 'picco'
   },
   {
     time: '23:00',
     kicker: 'Stop 02',
+    kickerIt: 'Tappa 02',
     title: 'Contrabbasso migration',
+    titleIt: 'Migrazione verso Contrabbasso',
     text: 'Olaf leaves THE PARKING+ and continues to Contrabbasso for further low-frequency fieldwork.',
+    textIt: 'Olaf lascia THE PARKING+ e continua verso Contrabbasso per ulteriore ricerca sul campo a bassa frequenza.',
     meta: 'second destination',
-    badge: 'next'
+    metaIt: 'seconda destinazione',
+    badge: 'next',
+    badgeIt: 'prossima'
   },
   {
     time: 'late',
     kicker: 'Protocol',
+    kickerIt: 'Protocollo',
     title: 'Scientifically unavailable',
+    titleIt: 'Scientificamente non disponibile',
     text: 'If discovered: offer water. If dancing: do not disturb. If philosophical: deploy fries.',
+    textIt: 'Se avvistato: offrire acqua. Se balla: non disturbare. Se diventa filosofico: schierare patatine.',
     meta: 'status unknown, vibes loud',
-    badge: 'olaf mode'
+    metaIt: 'stato ignoto, vibrazioni forti',
+    badge: 'olaf mode',
+    badgeIt: 'modalità olaf'
   }
 ];
 
 const stats = [
-  ['02.05.26', 'Saturday file'],
-  ['16:00', 'first signal'],
-  ['23:00', 'bass migration'],
-  ['∞', 'Olaf lore']
+  ['02.05.26', 'Saturday file', 'file del sabato'],
+  ['16:00', 'first signal', 'primo segnale'],
+  ['23:00', 'bass migration', 'migrazione bassi'],
+  ['∞', 'Olaf lore', 'mitologia Olaf']
 ];
 
 const weather = {
   location: 'Zürich',
   now: '7°C · clear',
+  nowIt: '7°C · sereno',
   feels: 'feels like 6°C',
+  feelsIt: 'percepiti 6°C',
   wind: '7 km/h wind',
+  windIt: 'vento 7 km/h',
   humidity: '56% humidity',
+  humidityIt: 'umidità 56%',
   outlook: [
-    ['15:00', '19°C', 'patchy rain nearby', '100% rain chance'],
-    ['18:00', '17°C', 'patchy rain nearby', '100% rain chance'],
-    ['21:00', '14°C', 'clear', 'dry window']
+    ['15:00', '19°C', 'patchy rain nearby', 'pioggia a tratti nei dintorni', '100% rain chance', '100% rischio pioggia'],
+    ['18:00', '17°C', 'patchy rain nearby', 'pioggia a tratti nei dintorni', '100% rain chance', '100% rischio pioggia'],
+    ['21:00', '14°C', 'clear', 'sereno', 'dry window', 'finestra asciutta']
   ],
-  advice: 'Bring a light layer and a tiny umbrella. Olaf may pretend he is weatherproof; data disagrees.'
+  advice: 'Bring a light layer and a tiny umbrella. Olaf may pretend he is weatherproof; data disagrees.',
+  adviceIt: 'Portare uno strato leggero e un mini ombrello. Olaf può fingere di essere impermeabile; i dati dissentono.'
 };
 ---
 <!doctype html>
@@ -87,69 +120,75 @@ const weather = {
     <div class="orb orb-one" aria-hidden="true"></div>
     <div class="orb orb-two" aria-hidden="true"></div>
 
-    <a class="skip-link" href="#timeline">Skip to schedule</a>
+    <a class="skip-link" href="#timeline" data-i18n="skip">Skip to schedule</a>
     <main class="site-shell">
       <nav class="topbar" aria-label="Top navigation">
         <a class="brand" href="/" aria-label="onlyplans home">
           <span class="brand-mark">☃️</span>
           <span>onlyplans</span>
         </a>
-        <div class="nav-status"><span></span> Olaf live-ish tracker</div>
+        <div class="nav-actions">
+          <div class="nav-status"><span></span> <span data-i18n="navStatus">Olaf live-ish tracker</span></div>
+          <div class="language-toggle" aria-label="Language switcher">
+            <button type="button" class="active" data-lang-button="en" aria-pressed="true">EN</button>
+            <button type="button" data-lang-button="it" aria-pressed="false">IT</button>
+          </div>
+        </div>
       </nav>
 
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <p class="eyebrow">Zürich · Saturday · highly unofficial operations desk</p>
-          <h1 id="page-title">Olaf has <em>plans</em>.</h1>
-          <p class="lede">Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.</p>
+          <p class="eyebrow" data-i18n="eyebrow">Zürich · Saturday · highly unofficial operations desk</p>
+          <h1 id="page-title"><span data-i18n="heroTitlePrefix">Olaf has</span> <em data-i18n="heroTitleEm">plans</em>.</h1>
+          <p class="lede" data-i18n-html="lede">Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.</p>
 
           <div class="cta-row">
-            <a class="primary-cta" href="#timeline">View the route</a>
+            <a class="primary-cta" href="#timeline" data-i18n="primaryCta">View the route</a>
             <a class="ghost-cta" href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">Schallfenster ↗</a>
           </div>
 
           <div class="stats" aria-label="Plan summary">
-            {stats.map(([value, label]) => (
-              <div class="stat"><strong>{value}</strong><span>{label}</span></div>
+            {stats.map(([value, label, labelIt]) => (
+              <div class="stat"><strong>{value}</strong><span data-en={label} data-it={labelIt}>{label}</span></div>
             ))}
           </div>
         </div>
 
         <aside class="mission-card" aria-label="Olaf mission card">
-          <div class="card-label">CURRENT MISSION</div>
+          <div class="card-label" data-i18n="currentMission">CURRENT MISSION</div>
           <div class="route-map">
             <div class="route-node active"><span>01</span><strong>THE PARKING+</strong><small>Schallfenster</small></div>
             <div class="route-line"></div>
-            <div class="route-node"><span>02</span><strong>Contrabbasso</strong><small>second act</small></div>
+            <div class="route-node"><span>02</span><strong>Contrabbasso</strong><small data-i18n="secondAct">second act</small></div>
           </div>
           <div class="weather-widget" aria-label="Zürich weather snapshot">
             <div>
-              <span class="weather-kicker">weather now · {weather.location}</span>
-              <strong>{weather.now}</strong>
-              <p>{weather.feels} · {weather.wind} · {weather.humidity}</p>
+              <span class="weather-kicker"><span data-i18n="weatherNow">weather now</span> · {weather.location}</span>
+              <strong data-en={weather.now} data-it={weather.nowIt}>{weather.now}</strong>
+              <p><span data-en={weather.feels} data-it={weather.feelsIt}>{weather.feels}</span> · <span data-en={weather.wind} data-it={weather.windIt}>{weather.wind}</span> · <span data-en={weather.humidity} data-it={weather.humidityIt}>{weather.humidity}</span></p>
             </div>
             <div class="weather-icon" aria-hidden="true">🌦️</div>
           </div>
-          <div class="olaf-chip">Status: beautifully over-scheduled</div>
+          <div class="olaf-chip" data-i18n="olafStatus">Status: beautifully over-scheduled</div>
         </aside>
       </section>
 
       <section class="timeline-section" id="timeline" aria-labelledby="timeline-title">
         <div class="section-heading">
-          <p>Actual schedule</p>
-          <h2 id="timeline-title">The Olaf Saturday run sheet</h2>
+          <p data-i18n="actualSchedule">Actual schedule</p>
+          <h2 id="timeline-title" data-i18n="runSheet">The Olaf Saturday run sheet</h2>
         </div>
 
         <div class="timeline">
           {stops.map((stop) => (
             <article class="timeline-card">
-              <div class="time-block"><span>{stop.kicker}</span><strong>{stop.time}</strong></div>
+              <div class="time-block"><span data-en={stop.kicker} data-it={stop.kickerIt}>{stop.kicker}</span><strong>{stop.time}</strong></div>
               <div class="timeline-body">
-                <h3>{stop.href ? <a href={stop.href} target="_blank" rel="noopener">{stop.title}</a> : stop.title}</h3>
-                <p>{stop.text}</p>
-                <small>{stop.meta}</small>
+                <h3>{stop.href ? <a href={stop.href} target="_blank" rel="noopener" data-en={stop.title} data-it={stop.titleIt}>{stop.title}</a> : <span data-en={stop.title} data-it={stop.titleIt}>{stop.title}</span>}</h3>
+                <p data-en={stop.text} data-it={stop.textIt}>{stop.text}</p>
+                <small data-en={stop.meta} data-it={stop.metaIt}>{stop.meta}</small>
               </div>
-              <div class="badge">{stop.badge}</div>
+              <div class="badge" data-en={stop.badge} data-it={stop.badgeIt}>{stop.badge}</div>
             </article>
           ))}
         </div>
@@ -157,24 +196,24 @@ const weather = {
 
       <section class="weather-section" aria-labelledby="weather-title">
         <div class="section-heading compact">
-          <p>Weather intelligence</p>
-          <h2 id="weather-title">Can Olaf survive outside?</h2>
+          <p data-i18n="weatherIntel">Weather intelligence</p>
+          <h2 id="weather-title" data-i18n="weatherTitle">Can Olaf survive outside?</h2>
         </div>
         <div class="weather-panel">
           <div class="weather-main">
             <span>🌦️</span>
             <div>
-              <strong>{weather.location}: {weather.now}</strong>
-              <p>{weather.advice}</p>
+              <strong>{weather.location}: <span data-en={weather.now} data-it={weather.nowIt}>{weather.now}</span></strong>
+              <p data-en={weather.advice} data-it={weather.adviceIt}>{weather.advice}</p>
             </div>
           </div>
           <div class="weather-slots">
-            {weather.outlook.map(([time, temp, condition, rain]) => (
+            {weather.outlook.map(([time, temp, condition, conditionIt, rain, rainIt]) => (
               <div class="weather-slot">
                 <span>{time}</span>
                 <strong>{temp}</strong>
-                <p>{condition}</p>
-                <small>{rain}</small>
+                <p data-en={condition} data-it={conditionIt}>{condition}</p>
+                <small data-en={rain} data-it={rainIt}>{rain}</small>
               </div>
             ))}
           </div>
@@ -184,26 +223,107 @@ const weather = {
       <section class="cards-grid" aria-label="Plan notes">
         <div class="note-card big">
           <span>🅿️</span>
-          <h3>Parking first</h3>
-          <p>Schallfenster’s 12-hour session is the launchpad: secret location, presale-only, wristband-powered.</p>
+          <h3 data-i18n="note1Title">Parking first</h3>
+          <p data-i18n="note1Text">Schallfenster’s 12-hour session is the launchpad: secret location, presale-only, wristband-powered.</p>
         </div>
         <div class="note-card">
           <span>🎻</span>
-          <h3>Contrabbasso next</h3>
-          <p>The second destination has class, bass, and suspiciously late-night timing.</p>
+          <h3 data-i18n="note2Title">Contrabbasso next</h3>
+          <p data-i18n="note2Text">The second destination has class, bass, and suspiciously late-night timing.</p>
         </div>
         <div class="note-card">
           <span>🛰️</span>
-          <h3>Tracking method</h3>
-          <p>Approximate. Vibe-based. Legally distinct from surveillance.</p>
+          <h3 data-i18n="note3Title">Tracking method</h3>
+          <p data-i18n="note3Text">Approximate. Vibe-based. Legally distinct from surveillance.</p>
         </div>
       </section>
 
       <footer>
         <span>onlyplans.lol</span>
-        <span>Built with Astro. Powered by Olaf’s inability to stay home.</span>
+        <span data-i18n="footer">Built with Astro. Powered by Olaf’s inability to stay home.</span>
       </footer>
     </main>
+
+    <script>
+      const translations = {
+        en: {
+          skip: 'Skip to schedule',
+          navStatus: 'Olaf live-ish tracker',
+          eyebrow: 'Zürich · Saturday · highly unofficial operations desk',
+          heroTitlePrefix: 'Olaf has',
+          heroTitleEm: 'plans',
+          lede: 'Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.',
+          primaryCta: 'View the route',
+          currentMission: 'CURRENT MISSION',
+          secondAct: 'second act',
+          weatherNow: 'weather now',
+          olafStatus: 'Status: beautifully over-scheduled',
+          actualSchedule: 'Actual schedule',
+          runSheet: 'The Olaf Saturday run sheet',
+          weatherIntel: 'Weather intelligence',
+          weatherTitle: 'Can Olaf survive outside?',
+          note1Title: 'Parking first',
+          note1Text: 'Schallfenster’s 12-hour session is the launchpad: secret location, presale-only, wristband-powered.',
+          note2Title: 'Contrabbasso next',
+          note2Text: 'The second destination has class, bass, and suspiciously late-night timing.',
+          note3Title: 'Tracking method',
+          note3Text: 'Approximate. Vibe-based. Legally distinct from surveillance.',
+          footer: 'Built with Astro. Powered by Olaf’s inability to stay home.'
+        },
+        it: {
+          skip: 'Vai al programma',
+          navStatus: 'Tracker quasi-live di Olaf',
+          eyebrow: 'Zurigo · sabato · desk operativo molto non ufficiale',
+          heroTitlePrefix: 'Olaf ha',
+          heroTitleEm: 'piani',
+          lede: 'L’itinerario di stasera non è più teorico: prima <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ di Schallfenster</a>, poi un piccolo pellegrinaggio dignitoso verso <strong>Contrabbasso</strong>.',
+          primaryCta: 'Vedi il percorso',
+          currentMission: 'MISSIONE ATTUALE',
+          secondAct: 'secondo atto',
+          weatherNow: 'meteo ora',
+          olafStatus: 'Stato: magnificamente sovra-programmato',
+          actualSchedule: 'Programma reale',
+          runSheet: 'La scaletta del sabato di Olaf',
+          weatherIntel: 'Intelligence meteo',
+          weatherTitle: 'Olaf può sopravvivere fuori?',
+          note1Title: 'Prima Parking',
+          note1Text: 'La sessione di 12 ore di Schallfenster è la rampa di lancio: location segreta, solo prevendita, alimentata da braccialetto.',
+          note2Title: 'Poi Contrabbasso',
+          note2Text: 'La seconda destinazione ha classe, bassi e un tempismo sospettosamente notturno.',
+          note3Title: 'Metodo di tracciamento',
+          note3Text: 'Approssimativo. Basato sulle vibrazioni. Legalmente distinto dalla sorveglianza.',
+          footer: 'Costruito con Astro. Alimentato dall’incapacità di Olaf di restare a casa.'
+        }
+      };
+
+      const setLanguage = (lang) => {
+        const dictionary = translations[lang] || translations.en;
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-i18n]').forEach((node) => {
+          const key = node.dataset.i18n;
+          if (dictionary[key]) node.textContent = dictionary[key];
+        });
+        document.querySelectorAll('[data-i18n-html]').forEach((node) => {
+          const key = node.dataset.i18nHtml;
+          if (dictionary[key]) node.innerHTML = dictionary[key];
+        });
+        document.querySelectorAll('[data-en][data-it]').forEach((node) => {
+          node.textContent = node.dataset[lang] || node.dataset.en;
+        });
+        document.querySelectorAll('[data-lang-button]').forEach((button) => {
+          const active = button.dataset.langButton === lang;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        localStorage.setItem('onlyplans-language', lang);
+      };
+
+      const initialLanguage = localStorage.getItem('onlyplans-language') || 'en';
+      setLanguage(initialLanguage);
+      document.querySelectorAll('[data-lang-button]').forEach((button) => {
+        button.addEventListener('click', () => setLanguage(button.dataset.langButton));
+      });
+    </script>
   </body>
 </html>
 
@@ -314,6 +434,42 @@ const weather = {
     box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 16px 42px rgba(0,0,0,.28);
     animation: float 4.5s ease-in-out infinite;
   }
+
+
+  .nav-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .language-toggle {
+    display: inline-flex;
+    gap: 4px;
+    padding: 5px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, .06);
+    backdrop-filter: blur(18px);
+  }
+
+  .language-toggle button {
+    min-width: 44px;
+    min-height: 36px;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 950;
+    cursor: pointer;
+  }
+
+  .language-toggle button.active {
+    background: var(--lime);
+    color: #07101d;
+  }
+
 
   .nav-status {
     display: inline-flex;

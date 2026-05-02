@@ -1,50 +1,63 @@
 ---
 import PlanCard from '../components/PlanCard.astro';
 
-const plans = [
+const stops = [
   {
-    time: 'Sat<br>16:00',
-    title: 'Arrive: THE PARKING+ by Schallfenster',
+    time: '16:00',
+    kicker: 'Stop 01',
+    title: 'THE PARKING+ opens the portal',
     href: 'https://www.schallfenster.art/parking',
-    text: 'Olaf enters the secret-location Zürich zone. Access-code energy, wristband logistics, immediate bass exposure.',
+    text: 'Olaf arrives at Schallfenster’s secret Zürich location. Wristband acquired. Civilian identity begins to dissolve.',
+    meta: 'Schallfenster · Zürich · secret location',
     badge: 'confirmed'
   },
   {
-    time: '16:00<br>18:00',
+    time: '16:00–18:00',
+    kicker: 'Set 01',
     title: 'GEM',
-    text: 'First Parking session. A gentle opening, assuming your definition of gentle includes a sound system.',
-    badge: 'set 1'
+    text: 'Opening transmission. Soft launch into the bass dimension.',
+    meta: 'Parking session',
+    badge: 'warm-up'
   },
   {
-    time: '18:00<br>20:00',
+    time: '18:00–20:00',
+    kicker: 'Set 02',
     title: 'DJ Mashallah',
-    text: 'The plot thickens. Olaf is now officially “somewhere near the speakers”.',
-    badge: 'set 2'
+    text: 'Signal strength increases. Olaf is now best tracked by rhythm, not GPS.',
+    meta: 'Parking session',
+    badge: 'rising'
   },
   {
-    time: '20:00<br>22:00',
+    time: '20:00–22:00',
+    kicker: 'Set 03',
     title: 'Carla Durisch',
-    text: 'Prime-time Schallfenster. Strong chance of “we should stay a bit longer” becoming binding law.',
-    badge: 'set 3'
+    text: 'Prime-time slot. “One more track” becomes a legally binding emotional contract.',
+    meta: 'Crosstown Rebels',
+    badge: 'peak'
   },
   {
-    time: 'Sat<br>23:00',
-    title: 'Move: Contrabbasso',
-    text: 'Second confirmed destination. Olaf exits THE PARKING+ and proceeds to Contrabbasso for further bass-adjacent research.',
-    badge: 'next stop'
+    time: '23:00',
+    kicker: 'Stop 02',
+    title: 'Contrabbasso migration',
+    text: 'Olaf leaves THE PARKING+ and continues to Contrabbasso for further low-frequency fieldwork.',
+    meta: 'second destination',
+    badge: 'next'
   },
   {
-    time: 'Late<br>late',
-    title: 'Status: scientifically unavailable',
-    text: 'If found, return with water. If dancing, do not interrupt unless bearing snacks.',
+    time: 'late',
+    kicker: 'Protocol',
+    title: 'Scientifically unavailable',
+    text: 'If discovered: offer water. If dancing: do not disturb. If philosophical: deploy fries.',
+    meta: 'status unknown, vibes loud',
     badge: 'olaf mode'
   }
 ];
 
-const highlights = [
-  ['🅿️', 'Stop 1: THE PARKING+', 'Schallfenster from 16:00: GEM, DJ Mashallah, then Carla Durisch. Secret Zürich location, very official chaos.'],
-  ['🎻', 'Stop 2: Contrabbasso', 'After Parking, Olaf goes to Contrabbasso. The itinerary says culture; the subtext says bass.'],
-  ['🛰️', 'Olaf telemetry', 'A speculative command center for tracking one man, one night, and several questionable transitions.']
+const stats = [
+  ['02.05.26', 'Saturday file'],
+  ['16:00', 'first signal'],
+  ['23:00', 'bass migration'],
+  ['∞', 'Olaf lore']
 ];
 ---
 <!doctype html>
@@ -52,73 +65,117 @@ const highlights = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>onlyplans — Olaf's Weekend</title>
-    <meta name="description" content="Olaf's weekend schedule, plans, and availability in one quirky landing page." />
+    <title>onlyplans.lol — Olaf’s Saturday</title>
+    <meta name="description" content="Olaf’s actual Saturday itinerary: THE PARKING+ by Schallfenster, then Contrabbasso." />
   </head>
   <body>
-    <div class="noise" aria-hidden="true"></div>
-    <main class="page">
-      <nav aria-label="Top navigation">
-        <div class="brand"><div class="logo">☃️</div> onlyplans</div>
-        <div class="nav-pill">Olaf today: Parking+ → Contrabbasso</div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="orb orb-one" aria-hidden="true"></div>
+    <div class="orb orb-two" aria-hidden="true"></div>
+
+    <main class="site-shell">
+      <nav class="topbar" aria-label="Top navigation">
+        <a class="brand" href="/" aria-label="onlyplans home">
+          <span class="brand-mark">☃️</span>
+          <span>onlyplans</span>
+        </a>
+        <div class="nav-status"><span></span> Olaf live-ish tracker</div>
       </nav>
 
       <section class="hero">
-        <div>
-          <div class="eyebrow">✨ Saturday 02.05.26 · Zürich plan mode</div>
-          <h1>Olaf's <span>onlyplans</span></h1>
-          <p class="tagline">Olaf's actual Saturday itinerary: first Schallfenster's THE PARKING+ in Zürich, then the migration to Contrabbasso. This is no longer a vibe board. This is operations.</p>
-          <div class="actions">
-            <a class="button primary" href="#schedule">View Olaf's actual route →</a>
-            <a class="button secondary" href="#highlights">Inspect the weirdness</a>
+        <div class="hero-copy">
+          <p class="eyebrow">Zürich · Saturday · highly unofficial operations desk</p>
+          <h1>Olaf has <em>plans</em>.</h1>
+          <p class="lede">Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.</p>
+
+          <div class="cta-row">
+            <a class="primary-cta" href="#timeline">View the route</a>
+            <a class="ghost-cta" href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">Schallfenster ↗</a>
           </div>
-          <div class="stats" aria-label="Weekend summary">
-            <div class="stat"><strong>16:00</strong><span>Parking starts</span></div>
-            <div class="stat"><strong>23:00</strong><span>next move</span></div>
-            <div class="stat"><strong>04:00</strong><span>ambitious ending</span></div>
+
+          <div class="stats" aria-label="Plan summary">
+            {stats.map(([value, label]) => (
+              <div class="stat"><strong>{value}</strong><span>{label}</span></div>
+            ))}
           </div>
         </div>
 
-        <aside class="card" id="schedule" aria-label="Olaf's schedule">
-          <div class="orbit" aria-hidden="true"><span>🧊</span><span>🅿️</span><span>🎻</span></div>
-          <div class="snowman" aria-hidden="true">
-            <div class="snowball head"><div class="nose"></div></div>
-            <div class="snowball body1"></div>
-            <div class="snowball body2"></div>
+        <aside class="mission-card" aria-label="Olaf mission card">
+          <div class="card-label">CURRENT MISSION</div>
+          <div class="route-map">
+            <div class="route-node active"><span>01</span><strong>THE PARKING+</strong><small>Schallfenster</small></div>
+            <div class="route-line"></div>
+            <div class="route-node"><span>02</span><strong>Contrabbasso</strong><small>second act</small></div>
           </div>
-          <h2>Olaf's actual schedule</h2>
-          <div class="schedule">
-            {plans.map((plan) => <PlanCard {...plan} />)}
-          </div>
+          <div class="olaf-chip">Status: beautifully over-scheduled</div>
         </aside>
       </section>
 
-      <section class="weekend" id="highlights" aria-label="Plan highlights">
-        {highlights.map(([icon, title, text]) => (
-          <div class="mini"><div class="icon">{icon}</div><h3>{title}</h3><p>{text}</p></div>
-        ))}
+      <section class="timeline-section" id="timeline">
+        <div class="section-heading">
+          <p>Actual schedule</p>
+          <h2>The Olaf Saturday run sheet</h2>
+        </div>
+
+        <div class="timeline">
+          {stops.map((stop) => (
+            <article class="timeline-card">
+              <div class="time-block"><span>{stop.kicker}</span><strong>{stop.time}</strong></div>
+              <div class="timeline-body">
+                <h3>{stop.href ? <a href={stop.href} target="_blank" rel="noopener">{stop.title}</a> : stop.title}</h3>
+                <p>{stop.text}</p>
+                <small>{stop.meta}</small>
+              </div>
+              <div class="badge">{stop.badge}</div>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <footer>Olaf's actual Saturday: THE PARKING+ → Contrabbasso. Built in Astro. Accountability remains limited.</footer>
+      <section class="cards-grid" aria-label="Plan notes">
+        <div class="note-card big">
+          <span>🅿️</span>
+          <h3>Parking first</h3>
+          <p>Schallfenster’s 12-hour session is the launchpad: secret location, presale-only, wristband-powered.</p>
+        </div>
+        <div class="note-card">
+          <span>🎻</span>
+          <h3>Contrabbasso next</h3>
+          <p>The second destination has class, bass, and suspiciously late-night timing.</p>
+        </div>
+        <div class="note-card">
+          <span>🛰️</span>
+          <h3>Tracking method</h3>
+          <p>Approximate. Vibe-based. Legally distinct from surveillance.</p>
+        </div>
+      </section>
+
+      <footer>
+        <span>onlyplans.lol</span>
+        <span>Built with Astro. Powered by Olaf’s inability to stay home.</span>
+      </footer>
     </main>
   </body>
 </html>
 
 <style is:global>
   :root {
-    --ink: #14213d;
-    --muted: #667085;
-    --paper: #fffaf0;
-    --snow: #f7fbff;
-    --ice: #bde0fe;
-    --blue: #3a86ff;
-    --orange: #ff9f1c;
-    --pink: #ffafcc;
-    --green: #80ed99;
-    --shadow: 0 24px 80px rgba(20, 33, 61, 0.16);
+    color-scheme: dark;
+    --ink: #f8fafc;
+    --muted: #a7b0c0;
+    --subtle: rgba(248, 250, 252, .68);
+    --panel: rgba(12, 18, 32, .72);
+    --panel-strong: rgba(19, 27, 46, .9);
+    --line: rgba(255, 255, 255, .13);
+    --hot: #ff4fd8;
+    --blue: #66e3ff;
+    --lime: #d8ff6f;
+    --amber: #ffb86b;
+    --shadow: 0 32px 90px rgba(0, 0, 0, .42);
   }
 
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
     margin: 0;
@@ -126,216 +183,380 @@ const highlights = [
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--ink);
     background:
-      radial-gradient(circle at top left, rgba(189, 224, 254, 0.85), transparent 36rem),
-      radial-gradient(circle at 80% 10%, rgba(255, 175, 204, 0.55), transparent 28rem),
-      conic-gradient(from 160deg at 75% 35%, rgba(128,237,153,.18), transparent, rgba(255,159,28,.2), transparent),
-      linear-gradient(135deg, #fffaf0 0%, #f7fbff 45%, #eaf7ff 100%);
+      radial-gradient(circle at 15% 12%, rgba(102, 227, 255, .28), transparent 30rem),
+      radial-gradient(circle at 82% 6%, rgba(255, 79, 216, .26), transparent 28rem),
+      radial-gradient(circle at 55% 100%, rgba(216, 255, 111, .14), transparent 34rem),
+      linear-gradient(135deg, #070a12 0%, #101827 48%, #070a12 100%);
     overflow-x: hidden;
   }
 
-  .noise {
+  a { color: inherit; }
+
+  .grain {
     position: fixed;
     inset: 0;
-    z-index: 0;
     pointer-events: none;
-    opacity: .15;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: .09;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  body::before, body::after {
-    content: "";
+  .orb {
     position: fixed;
     border-radius: 999px;
     pointer-events: none;
+    filter: blur(8px);
     z-index: 0;
   }
 
-  body::before {
-    width: 32rem;
-    height: 32rem;
-    right: -12rem;
-    bottom: -14rem;
-    background: rgba(128, 237, 153, 0.35);
-    filter: blur(8px);
-  }
+  .orb-one { width: 18rem; height: 18rem; left: -6rem; bottom: 10%; background: rgba(255, 184, 107, .18); }
+  .orb-two { width: 24rem; height: 24rem; right: -8rem; bottom: -8rem; background: rgba(102, 227, 255, .16); }
 
-  body::after {
-    width: 18rem;
-    height: 18rem;
-    left: 8%;
-    bottom: 7%;
-    background: rgba(255, 159, 28, 0.18);
-    filter: blur(18px);
-  }
-
-  .page {
+  .site-shell {
     position: relative;
     z-index: 1;
-    width: min(1120px, calc(100% - 32px));
+    width: min(1160px, calc(100% - 32px));
     margin: 0 auto;
-    padding: 34px 0 48px;
+    padding: 28px 0 44px;
   }
 
-  nav {
+  .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 18px;
-    margin-bottom: 46px;
+    gap: 16px;
+    margin-bottom: 64px;
   }
 
   .brand {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 12px;
+    text-decoration: none;
     font-weight: 950;
-    letter-spacing: -0.05em;
-    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    letter-spacing: -.05em;
+    font-size: clamp(1.25rem, 2vw, 1.7rem);
   }
 
-  .logo {
+  .brand-mark {
+    width: 46px;
+    height: 46px;
     display: grid;
     place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 15px;
-    background: #fff;
-    box-shadow: 0 10px 30px rgba(58, 134, 255, 0.22);
-    transform: rotate(-6deg);
-    animation: wobble 4s ease-in-out infinite;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 16px 42px rgba(0,0,0,.28);
+    animation: float 4.5s ease-in-out infinite;
   }
 
-  .nav-pill, .eyebrow {
-    border: 1px solid rgba(20, 33, 61, 0.12);
-    border-radius: 999px;
-    background: rgba(255,255,255,0.62);
-    backdrop-filter: blur(14px);
-    color: var(--muted);
-    font-weight: 800;
-  }
-
-  .nav-pill { padding: 10px 16px; font-size: .92rem; }
-  .eyebrow { display: inline-flex; padding: 8px 13px; box-shadow: 0 10px 28px rgba(20, 33, 61, 0.08); font-size: .84rem; }
-
-  .hero {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 36px;
-    align-items: center;
-  }
-
-  h1 {
-    margin: 20px 0 18px;
-    font-size: clamp(3.6rem, 9vw, 7.6rem);
-    line-height: .86;
-    letter-spacing: -.09em;
-  }
-
-  h1 span {
-    display: block;
-    color: var(--blue);
-    text-shadow: 4px 4px 0 rgba(255, 159, 28, 0.28), -3px -3px 0 rgba(255, 175, 204, 0.32);
-  }
-
-  .tagline {
-    max-width: 620px;
-    color: #475467;
-    font-size: clamp(1.06rem, 2vw, 1.34rem);
-    line-height: 1.55;
-    margin: 0 0 26px;
-  }
-
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 34px; }
-
-  .button {
+  .nav-status {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    border-radius: 18px;
-    padding: 15px 20px;
-    font-weight: 950;
-    text-decoration: none;
-    color: var(--ink);
-    box-shadow: 0 12px 26px rgba(20, 33, 61, 0.14);
-    transition: transform 180ms ease, filter 180ms ease;
-  }
-
-  .button:hover { transform: translateY(-2px) rotate(-1deg); filter: saturate(1.15); }
-  .button.primary { background: var(--orange); }
-  .button.secondary { background: rgba(255,255,255,0.74); border: 1px solid rgba(20, 33, 61, 0.1); }
-
-  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 620px; }
-  .stat { padding: 16px; border-radius: 22px; background: rgba(255,255,255,0.7); border: 1px solid rgba(20, 33, 61, 0.1); }
-  .stat strong { display: block; font-size: 1.5rem; }
-  .stat span { color: var(--muted); font-weight: 800; font-size: .88rem; }
-
-  .card {
-    position: relative;
-    padding: 24px;
-    border-radius: 34px;
-    background: rgba(255,255,255,0.74);
-    border: 1px solid rgba(255,255,255,0.9);
-    box-shadow: var(--shadow);
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .06);
+    color: var(--subtle);
+    font-weight: 800;
+    font-size: .9rem;
     backdrop-filter: blur(18px);
   }
 
-  .orbit {
+  .nav-status span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--lime);
+    box-shadow: 0 0 24px var(--lime);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+    gap: 34px;
+    align-items: stretch;
+  }
+
+  .hero-copy, .mission-card, .timeline-section, .note-card {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.045));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(24px);
+  }
+
+  .hero-copy {
+    padding: clamp(28px, 5vw, 56px);
+    border-radius: 36px;
+    min-height: 560px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .eyebrow, .section-heading p, .card-label {
+    margin: 0 0 18px;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-size: .76rem;
+    font-weight: 950;
+  }
+
+  h1 {
+    margin: 0;
+    max-width: 760px;
+    font-size: clamp(4.5rem, 12vw, 9.4rem);
+    line-height: .78;
+    letter-spacing: -.1em;
+  }
+
+  h1 em {
+    display: block;
+    width: fit-content;
+    font-style: normal;
+    color: var(--lime);
+    text-shadow: 5px 5px 0 rgba(255, 79, 216, .35), -4px -4px 0 rgba(102, 227, 255, .2);
+    transform: rotate(-2deg);
+  }
+
+  .lede {
+    max-width: 700px;
+    margin: 28px 0 0;
+    color: var(--subtle);
+    font-size: clamp(1.08rem, 2vw, 1.35rem);
+    line-height: 1.6;
+  }
+
+  .lede a { color: var(--ink); text-decoration-color: var(--hot); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .primary-cta, .ghost-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 20px;
+    border-radius: 18px;
+    text-decoration: none;
+    font-weight: 950;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .primary-cta { color: #07101d; background: var(--lime); box-shadow: 0 18px 42px rgba(216,255,111,.2); }
+  .ghost-cta { border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); }
+  .primary-cta:hover, .ghost-cta:hover { transform: translateY(-3px); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 34px;
+  }
+
+  .stat {
+    padding: 16px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.055);
+  }
+
+  .stat strong { display: block; font-size: 1.25rem; letter-spacing: -.04em; }
+  .stat span { display: block; margin-top: 4px; color: var(--muted); font-weight: 800; font-size: .82rem; }
+
+  .mission-card {
+    position: relative;
+    overflow: hidden;
+    padding: 28px;
+    border-radius: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 560px;
+  }
+
+  .mission-card::before {
+    content: "";
     position: absolute;
-    inset: -30px -10px auto auto;
-    width: 160px;
-    height: 160px;
+    inset: 18px;
+    border-radius: 28px;
+    border: 1px dashed rgba(255,255,255,.18);
     pointer-events: none;
-    animation: orbitSpin 13s linear infinite;
-  }
-  .orbit span { position: absolute; font-size: 1.45rem; filter: drop-shadow(0 8px 8px rgba(20,33,61,.16)); }
-  .orbit span:nth-child(1) { left: 10px; top: 60px; }
-  .orbit span:nth-child(2) { right: 12px; top: 20px; }
-  .orbit span:nth-child(3) { right: 46px; bottom: 4px; }
-
-  .snowman { position: absolute; right: 26px; top: -54px; width: 104px; filter: drop-shadow(0 14px 18px rgba(20,33,61,0.18)); }
-  .snowball { margin-inline: auto; background: white; border: 3px solid #d8efff; border-radius: 50%; }
-  .head { width: 54px; height: 54px; position: relative; }
-  .head::before, .head::after { content: ""; position: absolute; top: 18px; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
-  .head::before { left: 15px; }
-  .head::after { right: 15px; }
-  .nose { position: absolute; left: 26px; top: 26px; width: 25px; height: 8px; border-radius: 999px; background: var(--orange); transform: rotate(8deg); }
-  .body1 { width: 74px; height: 70px; margin-top: -6px; }
-  .body2 { width: 94px; height: 84px; margin-top: -8px; }
-
-  .card h2 { margin: 0 0 18px; font-size: clamp(1.8rem, 3vw, 2.55rem); letter-spacing: -.05em; }
-  .schedule { display: grid; gap: 12px; }
-  .plan { display: grid; grid-template-columns: 76px 1fr auto; align-items: center; gap: 14px; padding: 15px; border-radius: 22px; background: #fff; border: 1px solid rgba(20, 33, 61, 0.08); transition: transform 180ms ease, box-shadow 180ms ease; }
-  .plan:hover { transform: translateY(-3px) rotate(.3deg); box-shadow: 0 14px 30px rgba(20, 33, 61, 0.1); }
-  .time { font-weight: 950; color: var(--blue); }
-  .plan h3 { margin: 0 0 4px; font-size: 1.02rem; }
-  .plan h3 a { color: inherit; text-decoration: none; }
-  .plan h3 a:hover { color: var(--blue); }
-  .plan p { margin: 0; color: var(--muted); font-size: .92rem; }
-  .badge { padding: 8px 10px; border-radius: 999px; background: #eef7ff; color: var(--blue); font-weight: 950; font-size: .78rem; white-space: nowrap; }
-
-  .weekend { margin-top: 36px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .mini { padding: 20px; border-radius: 28px; background: rgba(255,255,255,0.68); border: 1px solid rgba(20, 33, 61, 0.09); }
-  .mini .icon { font-size: 2rem; }
-  .mini h3 { margin: 12px 0 8px; font-size: 1.25rem; }
-  .mini p { margin: 0; color: var(--muted); line-height: 1.5; }
-
-  footer { margin-top: 36px; text-align: center; color: var(--muted); font-weight: 800; }
-
-  @keyframes wobble {
-    0%, 100% { transform: rotate(-6deg) translateY(0); }
-    50% { transform: rotate(5deg) translateY(-4px); }
   }
 
-  @keyframes orbitSpin {
-    to { transform: rotate(360deg); }
+  .route-map {
+    position: relative;
+    display: grid;
+    gap: 18px;
+    margin: 60px 0;
   }
 
-  @media (max-width: 850px) {
+  .route-node {
+    position: relative;
+    z-index: 1;
+    padding: 22px;
+    border-radius: 28px;
+    border: 1px solid var(--line);
+    background: var(--panel-strong);
+  }
+
+  .route-node.active { background: linear-gradient(135deg, rgba(102,227,255,.22), rgba(255,79,216,.12)); }
+  .route-node span { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; background: var(--ink); color: #07101d; font-weight: 950; }
+  .route-node strong { display: block; margin-top: 16px; font-size: clamp(1.5rem, 3vw, 2.15rem); letter-spacing: -.05em; }
+  .route-node small { display: block; margin-top: 6px; color: var(--muted); font-weight: 850; }
+
+  .route-line {
+    width: 3px;
+    height: 56px;
+    margin-left: 38px;
+    border-radius: 99px;
+    background: linear-gradient(var(--blue), var(--hot));
+    box-shadow: 0 0 24px rgba(102,227,255,.4);
+  }
+
+  .olaf-chip {
+    width: fit-content;
+    padding: 12px 14px;
+    border-radius: 999px;
+    background: rgba(216,255,111,.12);
+    border: 1px solid rgba(216,255,111,.28);
+    color: var(--lime);
+    font-weight: 950;
+  }
+
+  .timeline-section {
+    margin-top: 28px;
+    padding: clamp(24px, 4vw, 42px);
+    border-radius: 36px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    font-size: clamp(2.1rem, 5vw, 4.3rem);
+    line-height: .9;
+    letter-spacing: -.07em;
+  }
+
+  .timeline { display: grid; gap: 12px; }
+
+  .timeline-card {
+    display: grid;
+    grid-template-columns: 148px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 26px;
+    border: 1px solid var(--line);
+    background: rgba(4, 8, 16, .42);
+    transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  }
+
+  .timeline-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(102,227,255,.38);
+    background: rgba(255,255,255,.075);
+  }
+
+  .time-block span {
+    display: block;
+    color: var(--hot);
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    font-size: .68rem;
+    font-weight: 950;
+  }
+
+  .time-block strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.35rem;
+    letter-spacing: -.04em;
+  }
+
+  .timeline-body h3 { margin: 0 0 6px; font-size: clamp(1.15rem, 2vw, 1.55rem); letter-spacing: -.035em; }
+  .timeline-body h3 a { text-decoration: none; }
+  .timeline-body h3 a:hover { color: var(--blue); }
+  .timeline-body p { margin: 0; color: var(--subtle); line-height: 1.45; }
+  .timeline-body small { display: block; margin-top: 8px; color: var(--muted); font-weight: 850; }
+
+  .badge {
+    padding: 9px 11px;
+    border-radius: 999px;
+    background: rgba(102,227,255,.11);
+    border: 1px solid rgba(102,227,255,.22);
+    color: var(--blue);
+    font-size: .78rem;
+    font-weight: 950;
+    white-space: nowrap;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1.2fr .9fr .9fr;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .note-card {
+    padding: 24px;
+    border-radius: 30px;
+  }
+
+  .note-card.big { background: linear-gradient(135deg, rgba(255,79,216,.18), rgba(102,227,255,.08)); }
+  .note-card span { font-size: 2rem; }
+  .note-card h3 { margin: 14px 0 8px; font-size: 1.35rem; letter-spacing: -.04em; }
+  .note-card p { margin: 0; color: var(--subtle); line-height: 1.5; }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 30px;
+    color: var(--muted);
+    font-weight: 850;
+    font-size: .92rem;
+  }
+
+  footer span:first-child { color: var(--ink); }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-6px) rotate(5deg); }
+  }
+
+  @media (max-width: 900px) {
+    .topbar { margin-bottom: 34px; }
+    .nav-status { display: none; }
     .hero { grid-template-columns: 1fr; }
-    .card { margin-top: 38px; }
-    .stats, .weekend { grid-template-columns: 1fr; }
-    .plan { grid-template-columns: 64px 1fr; }
-    .badge { grid-column: 2; width: fit-content; }
-    .nav-pill { display: none; }
+    .hero-copy, .mission-card { min-height: auto; }
+    .stats, .cards-grid { grid-template-columns: 1fr 1fr; }
+    .timeline-card { grid-template-columns: 1fr; align-items: start; }
+    .badge { width: fit-content; }
+    footer { flex-direction: column; }
+  }
+
+  @media (max-width: 560px) {
+    .site-shell { width: min(100% - 20px, 1160px); padding-top: 14px; }
+    .hero-copy, .mission-card, .timeline-section { border-radius: 26px; }
+    .hero-copy { padding: 26px 20px; }
+    h1 { font-size: clamp(4rem, 22vw, 6rem); }
+    .stats, .cards-grid { grid-template-columns: 1fr; }
+    .section-heading { display: block; }
+    .route-node strong { font-size: 1.5rem; }
   }
 </style>

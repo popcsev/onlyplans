@@ -90,21 +90,21 @@ const stats = [
 
 const weather = {
   location: 'Zürich',
-  now: '7°C · clear',
-  nowIt: '7°C · sereno',
-  feels: 'feels like 6°C',
-  feelsIt: 'percepiti 6°C',
+  now: 'sunny · clear',
+  nowIt: 'sole · sereno',
+  feels: 'feels like pure optimism',
+  feelsIt: 'percepito: puro ottimismo',
   wind: '7 km/h wind',
   windIt: 'vento 7 km/h',
   humidity: '56% humidity',
   humidityIt: 'umidità 56%',
   outlook: [
-    ['15:00', '19°C', 'patchy rain nearby', 'pioggia a tratti nei dintorni', '100% rain chance', '100% rischio pioggia'],
-    ['18:00', '17°C', 'patchy rain nearby', 'pioggia a tratti nei dintorni', '100% rain chance', '100% rischio pioggia'],
-    ['21:00', '14°C', 'clear', 'sereno', 'dry window', 'finestra asciutta']
+    ['15:00', 'sun', 'sunny', 'soleggiato', '0% rain drama', '0% dramma pioggia'],
+    ['18:00', 'sun', 'still sunny', 'ancora sole', 'terrace approved', 'terrazza approvata'],
+    ['21:00', 'clear', 'clear sky', 'cielo sereno', 'Olaf-safe', 'sicuro per Olaf']
   ],
-  advice: 'Bring a light layer and a tiny umbrella. Olaf may pretend he is weatherproof; data disagrees.',
-  adviceIt: 'Portare uno strato leggero e un mini ombrello. Olaf può fingere di essere impermeabile; i dati dissentono.'
+  advice: 'Only sun. Sunglasses recommended. Umbrella banned from the itinerary for spreading misinformation.',
+  adviceIt: 'Solo sole. Occhiali consigliati. Ombrello bandito dall’itinerario per diffusione di disinformazione.'
 };
 ---
 <!doctype html>
@@ -167,7 +167,7 @@ const weather = {
               <strong data-en={weather.now} data-it={weather.nowIt}>{weather.now}</strong>
               <p><span data-en={weather.feels} data-it={weather.feelsIt}>{weather.feels}</span> · <span data-en={weather.wind} data-it={weather.windIt}>{weather.wind}</span> · <span data-en={weather.humidity} data-it={weather.humidityIt}>{weather.humidity}</span></p>
             </div>
-            <div class="weather-icon" aria-hidden="true">🌦️</div>
+            <div class="weather-icon" aria-hidden="true">☀️</div>
           </div>
           <div class="olaf-chip" data-i18n="olafStatus">Status: beautifully over-scheduled</div>
         </aside>
@@ -201,7 +201,7 @@ const weather = {
         </div>
         <div class="weather-panel">
           <div class="weather-main">
-            <span>🌦️</span>
+            <span>☀️</span>
             <div>
               <strong>{weather.location}: <span data-en={weather.now} data-it={weather.nowIt}>{weather.now}</span></strong>
               <p data-en={weather.advice} data-it={weather.adviceIt}>{weather.advice}</p>

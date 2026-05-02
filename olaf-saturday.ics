@@ -1,0 +1,38 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//onlyplans.lol//Olaf Saturday//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Olaf's OnlyPlans
+X-WR-CALDESC:Olaf's Saturday schedule: THE PARKING+ then Contrabbasso
+BEGIN:VEVENT
+UID:olaf-parking-plus-20260502@onlyplans.lol
+DTSTAMP:20260502T153100Z
+DTSTART:20260502T140000Z
+DTEND:20260502T200000Z
+SUMMARY:Olaf at THE PARKING+ / Schallfenster
+DESCRIPTION:Olaf's first stop: THE PARKING+ by Schallfenster. GEM 16:00-18:00, DJ Mashallah 18:00-20:00, Carla Durisch 20:00-22:00. Secret Zürich location. More: https://www.schallfenster.art/parking
+LOCATION:Zürich, Switzerland — secret Schallfenster location
+URL:https://www.schallfenster.art/parking
+END:VEVENT
+BEGIN:VEVENT
+UID:olaf-contrabbasso-20260502@onlyplans.lol
+DTSTAMP:20260502T153100Z
+DTSTART:20260502T210000Z
+DTEND:20260503T010000Z
+SUMMARY:Olaf migration to Contrabbasso
+DESCRIPTION:Second stop: Olaf continues to Contrabbasso for further low-frequency fieldwork. If discovered, offer water.
+LOCATION:Contrabbasso, Zürich, Switzerland
+URL:https://onlyplans.lol
+END:VEVENT
+BEGIN:VEVENT
+UID:olaf-side-quest-20260502@onlyplans.lol
+DTSTAMP:20260502T153100Z
+DTSTART:20260502T220000Z
+DTEND:20260503T020000Z
+SUMMARY:Olaf side quest: find the crazy girl
+DESCRIPTION:Side quest: Olaf is looking for a crazy girl — ideally the fun kind, not the police-report kind.
+LOCATION:Somewhere between THE PARKING+ and Contrabbasso
+URL:https://onlyplans.lol
+END:VEVENT
+END:VCALENDAR

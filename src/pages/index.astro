@@ -12,7 +12,8 @@ const stops = [
     meta: 'Schallfenster · Zürich · secret location',
     metaIt: 'Schallfenster · Zurigo · location segreta',
     badge: 'confirmed',
-    badgeIt: 'confermato'
+    badgeIt: 'confermato',
+    calendarHref: '/olaf-parking-plus.ics'
   },
   {
     time: '16:00–18:00',
@@ -64,7 +65,8 @@ const stops = [
     meta: 'second destination',
     metaIt: 'seconda destinazione',
     badge: 'next',
-    badgeIt: 'prossima'
+    badgeIt: 'prossima',
+    calendarHref: '/olaf-contrabbasso.ics'
   },
   {
     time: 'late',
@@ -145,6 +147,7 @@ const weather = {
           <div class="cta-row">
             <a class="primary-cta" href="#timeline" data-i18n="primaryCta">View the route</a>
             <a class="ghost-cta" href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">Schallfenster ↗</a>
+            <a class="calendar-cta" href="/olaf-saturday.ics" download data-i18n="calendarCta">Add all to calendar</a>
           </div>
 
           <div class="stats" aria-label="Plan summary">
@@ -188,7 +191,10 @@ const weather = {
                 <p data-en={stop.text} data-it={stop.textIt}>{stop.text}</p>
                 <small data-en={stop.meta} data-it={stop.metaIt}>{stop.meta}</small>
               </div>
-              <div class="badge" data-en={stop.badge} data-it={stop.badgeIt}>{stop.badge}</div>
+              <div class="timeline-actions">
+                <div class="badge" data-en={stop.badge} data-it={stop.badgeIt}>{stop.badge}</div>
+                {stop.calendarHref && <a class="mini-calendar" href={stop.calendarHref} download data-i18n="addStop">Add</a>}
+              </div>
             </article>
           ))}
         </div>
@@ -259,6 +265,8 @@ const weather = {
           heroTitleEm: 'plans',
           lede: 'Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.',
           primaryCta: 'View the route',
+          calendarCta: 'Add all to calendar',
+          addStop: 'Add',
           currentMission: 'CURRENT MISSION',
           secondAct: 'second act',
           weatherNow: 'weather now',
@@ -285,6 +293,8 @@ const weather = {
           heroTitleEm: 'piani',
           lede: 'L’itinerario di stasera non è più teorico: prima <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ di Schallfenster</a>, poi un piccolo pellegrinaggio dignitoso verso <strong>Contrabbasso</strong>.',
           primaryCta: 'Vedi il percorso',
+          calendarCta: 'Aggiungi tutto al calendario',
+          addStop: 'Aggiungi',
           currentMission: 'MISSIONE ATTUALE',
           secondAct: 'secondo atto',
           weatherNow: 'meteo ora',
@@ -568,7 +578,7 @@ const weather = {
     margin-top: 32px;
   }
 
-  .primary-cta, .ghost-cta {
+  .primary-cta, .ghost-cta, .calendar-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -581,8 +591,9 @@ const weather = {
   }
 
   .primary-cta { color: #07101d; background: var(--lime); box-shadow: 0 18px 42px rgba(216,255,111,.2); }
-  .ghost-cta { border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); }
-  .primary-cta:hover, .ghost-cta:hover { transform: translateY(-3px); }
+  .ghost-cta, .calendar-cta { border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); }
+  .calendar-cta { border-color: rgba(255, 184, 107, .36); color: var(--amber); }
+  .primary-cta:hover, .ghost-cta:hover, .calendar-cta:hover { transform: translateY(-3px); }
 
   .stats {
     display: grid;
@@ -724,15 +735,32 @@ const weather = {
   .timeline-body p { margin: 0; max-width: 72ch; color: var(--subtle); line-height: 1.55; }
   .timeline-body small { display: block; margin-top: 8px; color: var(--muted); font-weight: 850; }
 
-  .badge {
+  .timeline-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .badge, .mini-calendar {
     padding: 9px 11px;
     border-radius: 999px;
-    background: rgba(102,227,255,.11);
-    border: 1px solid rgba(102,227,255,.22);
-    color: var(--blue);
     font-size: .78rem;
     font-weight: 950;
     white-space: nowrap;
+  }
+
+  .badge {
+    background: rgba(102,227,255,.11);
+    border: 1px solid rgba(102,227,255,.22);
+    color: var(--blue);
+  }
+
+  .mini-calendar {
+    border: 1px solid rgba(216,255,111,.28);
+    background: rgba(216,255,111,.12);
+    color: var(--lime);
+    text-decoration: none;
   }
 
 
@@ -891,6 +919,7 @@ const weather = {
     .stats, .cards-grid, .weather-panel { grid-template-columns: 1fr 1fr; }
     .weather-main { grid-column: 1 / -1; }
     .timeline-card { grid-template-columns: 1fr; align-items: start; }
+    .timeline-actions { justify-content: flex-start; }
     .badge { width: fit-content; }
     footer { flex-direction: column; }
   }

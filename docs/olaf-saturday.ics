@@ -35,4 +35,14 @@ DESCRIPTION:Side quest: Olaf is looking for a crazy girl — ideally the fun kin
 LOCATION:Somewhere between THE PARKING+ and Contrabbasso
 URL:https://onlyplans.lol
 END:VEVENT
+BEGIN:VEVENT
+UID:olaf-hive-20260503@onlyplans.lol
+DTSTAMP:20260503T001600Z
+DTSTART:20260503T001500Z
+DTEND:20260503T040000Z
+SUMMARY:Olaf goes to Hive
+DESCRIPTION:Live update: Olaf is going to Hive right now. Party assistance may be required.
+LOCATION:Hive, Zürich, Switzerland
+URL:https://onlyplans.lol
+END:VEVENT
 END:VCALENDAR

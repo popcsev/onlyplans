@@ -69,6 +69,20 @@ const stops = [
     calendarHref: '/olaf-contrabbasso.ics'
   },
   {
+    time: 'now',
+    kicker: 'Stop 03',
+    kickerIt: 'Tappa 03',
+    title: 'Hive migration',
+    titleIt: 'Migrazione verso Hive',
+    text: 'Live update: Olaf is going to Hive right now. The night has officially entered its bee-themed escalation phase.',
+    textIt: 'Aggiornamento live: Olaf sta andando a Hive proprio ora. La notte è ufficialmente entrata nella fase ape-escalation.',
+    meta: 'Hive · Zürich · current move',
+    metaIt: 'Hive · Zurigo · movimento attuale',
+    badge: 'live now',
+    badgeIt: 'live ora',
+    calendarHref: '/olaf-hive.ics'
+  },
+  {
     time: 'late',
     kicker: 'Protocol',
     kickerIt: 'Protocollo',
@@ -130,7 +144,7 @@ const weather = {
           <span>onlyplans</span>
         </a>
         <div class="nav-actions">
-          <div class="nav-status"><span></span> <span data-i18n="navStatus">Olaf live-ish tracker</span></div>
+          <div class="nav-status"><span></span> <span data-i18n="navStatus">Olaf live tracker: Hive</span></div>
           <div class="language-toggle" aria-label="Language switcher">
             <button type="button" class="active" data-lang-button="en" aria-pressed="true">EN</button>
             <button type="button" data-lang-button="it" aria-pressed="false">IT</button>
@@ -142,7 +156,7 @@ const weather = {
         <div class="hero-copy">
           <p class="eyebrow" data-i18n="eyebrow">Zürich · Saturday · highly unofficial operations desk</p>
           <h1 id="page-title"><span data-i18n="heroTitlePrefix">Olaf has</span> <em data-i18n="heroTitleEm">plans</em>.</h1>
-          <p class="lede" data-i18n-html="lede">Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.</p>
+          <p class="lede" data-i18n-html="lede">Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>, and now the live migration to <strong>Hive</strong>.</p>
 
           <div class="cta-row">
             <a class="primary-cta" href="#timeline" data-i18n="primaryCta">View the route</a>
@@ -164,6 +178,8 @@ const weather = {
             <div class="route-node active"><span>01</span><strong>THE PARKING+</strong><small>Schallfenster</small></div>
             <div class="route-line"></div>
             <div class="route-node"><span>02</span><strong>Contrabbasso</strong><small data-i18n="secondAct">second act</small></div>
+            <div class="route-line"></div>
+            <div class="route-node live"><span>03</span><strong>Hive</strong><small data-i18n="liveNow">live now</small></div>
           </div>
           <div class="weather-widget" aria-label="Zürich weather snapshot">
             <div>
@@ -173,7 +189,7 @@ const weather = {
             </div>
             <div class="weather-icon" aria-hidden="true">☀️</div>
           </div>
-          <div class="olaf-chip" data-i18n="olafStatus">Status: beautifully over-scheduled</div>
+          <div class="olaf-chip" data-i18n="olafStatus">Status: en route to Hive</div>
         </aside>
       </section>
 
@@ -314,19 +330,20 @@ const weather = {
       const translations = {
         en: {
           skip: 'Skip to schedule',
-          navStatus: 'Olaf live-ish tracker',
+          navStatus: 'Olaf live tracker: Hive',
           eyebrow: 'Zürich · Saturday · highly unofficial operations desk',
           heroTitlePrefix: 'Olaf has',
           heroTitleEm: 'plans',
-          lede: 'Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>.',
+          lede: 'Tonight’s itinerary is no longer theoretical: first <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ by Schallfenster</a>, then a dignified little bass pilgrimage to <strong>Contrabbasso</strong>, and now the live migration to <strong>Hive</strong>.',
           primaryCta: 'View the route',
           calendarCta: 'Add all to calendar',
           sosCta: 'SOS Olaf',
           addStop: 'Add',
           currentMission: 'CURRENT MISSION',
           secondAct: 'second act',
+          liveNow: 'live now',
           weatherNow: 'weather now',
-          olafStatus: 'Status: beautifully over-scheduled',
+          olafStatus: 'Status: en route to Hive',
           actualSchedule: 'Actual schedule',
           runSheet: 'The Olaf Saturday run sheet',
           addPlanKicker: 'Add plans',
@@ -362,19 +379,20 @@ const weather = {
         },
         it: {
           skip: 'Vai al programma',
-          navStatus: 'Tracker quasi-live di Olaf',
+          navStatus: 'Tracker live di Olaf: Hive',
           eyebrow: 'Zurigo · sabato · desk operativo molto non ufficiale',
           heroTitlePrefix: 'Olaf ha',
           heroTitleEm: 'piani',
-          lede: 'L’itinerario di stasera non è più teorico: prima <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ di Schallfenster</a>, poi un piccolo pellegrinaggio dignitoso verso <strong>Contrabbasso</strong>.',
+          lede: 'L’itinerario di stasera non è più teorico: prima <a href="https://www.schallfenster.art/parking" target="_blank" rel="noopener">THE PARKING+ di Schallfenster</a>, poi un piccolo pellegrinaggio dignitoso verso <strong>Contrabbasso</strong>, e ora la migrazione live verso <strong>Hive</strong>.',
           primaryCta: 'Vedi il percorso',
           calendarCta: 'Aggiungi tutto al calendario',
           sosCta: 'SOS Olaf',
           addStop: 'Aggiungi',
           currentMission: 'MISSIONE ATTUALE',
           secondAct: 'secondo atto',
+          liveNow: 'live ora',
           weatherNow: 'meteo ora',
-          olafStatus: 'Stato: magnificamente sovra-programmato',
+          olafStatus: 'Stato: in rotta verso Hive',
           actualSchedule: 'Programma reale',
           runSheet: 'La scaletta del sabato di Olaf',
           addPlanKicker: 'Aggiungi piani',
@@ -850,6 +868,7 @@ const weather = {
   }
 
   .route-node.active { background: linear-gradient(135deg, rgba(102,227,255,.22), rgba(255,79,216,.12)); }
+  .route-node.live { background: linear-gradient(135deg, rgba(216,255,111,.2), rgba(255,184,107,.1)); border-color: rgba(216,255,111,.32); }
   .route-node span { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; background: var(--ink); color: #07101d; font-weight: 950; }
   .route-node strong { display: block; margin-top: 16px; font-size: clamp(1.5rem, 3vw, 2.15rem); letter-spacing: -.05em; }
   .route-node small { display: block; margin-top: 6px; color: var(--muted); font-weight: 850; }
